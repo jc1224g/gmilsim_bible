@@ -1,0 +1,15 @@
+---
+interface Props { words: { word: string; meaning: string }[] }
+const { words } = Astro.props;
+---
+<section aria-labelledby="words-title">
+  <h2 id="words-title">단어 카드</h2>
+  <dl class="words">
+    {words.map((w) => (
+      <div class="word">
+        <dt>{w.word}</dt>
+        <dd>{w.meaning}</dd>
+      </div>
+    ))}
+  </dl>
+</section>

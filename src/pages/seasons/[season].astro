@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import LessonList from '../../components/LessonList.astro';
+import { getPosts, groupBySeason, seasonName, type Post } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const seasons = groupBySeason(await getPosts());
+  return seasons.map(([s, posts]) => ({ params: { season: String(s) }, props: { s, posts } }));
+}
+interface Props { s: number; posts: Post[] }
+const { s, posts } = Astro.props;
+---
+<Base title={seasonName(s)} description={`「쉽게 배우는 성경」 ${seasonName(s)}의 강 목록이에요.`}>
+  <div class="wrap">
+    <header class="post-head">
+      <span class="chip">시즌 모아 보기</span>
+      <h1>{seasonName(s)}</h1>
+      <p class="post-meta">{posts.length}개 강</p>
+    </header>
+    <LessonList posts={posts} />
+    <p style="margin-top:1.5rem"><a href="/">← 전체 강의 목록</a></p>
+  </div>
+</Base>

@@ -1,0 +1,8 @@
+---
+interface Props { text: string }
+const { text } = Astro.props;
+---
+<aside class="box next-box" aria-label="다음 강 예고">
+  <p class="box-label">다음 강 예고</p>
+  <p>{text}</p>
+</aside>

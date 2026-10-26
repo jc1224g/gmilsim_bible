@@ -1,0 +1,8 @@
+---
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+<section class="box box-tldr" aria-label="3줄 요약">
+  <p class="box-label">3줄 요약</p>
+  <ol>{items.map((t) => <li>{t}</li>)}</ol>
+</section>

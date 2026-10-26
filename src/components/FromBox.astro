@@ -1,0 +1,8 @@
+---
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+<aside class="box from-box" aria-label="바탕 설교">
+  <p class="box-label">이 글의 바탕 설교·강의</p>
+  <ul>{items.map((t) => <li>{t}</li>)}</ul>
+</aside>

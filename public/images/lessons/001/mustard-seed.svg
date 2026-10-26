@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" role="img" aria-labelledby="t d">
+<title id="t">겨자씨가 큰 나무로 자라요 (막 4:31-32)</title>
+<desc id="d">세 단계 그림. 얼굴이 있는 아주 작은 겨자씨, 해와 달 아래에서 자라는 싹(자고 깨는 동안에도 자라요), 그리고 새들이 가지에 깃든 큰 나무(새들이 깃들 만큼).</desc>
+<style>
+text{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans CJK KR','Noto Sans KR',sans-serif;font-weight:800;text-anchor:middle;fill:#16233a}
+.o{stroke:#16233a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.l{font-size:28px}
+.ck{fill:#f4a6a6;opacity:.85}
+.e{fill:#16233a}
+.m{stroke:#16233a;stroke-width:2.5;fill:none;stroke-linecap:round}
+</style>
+<rect x="4" y="4" width="752" height="492" rx="36" fill="#fbf8f1" stroke="#f3ecdd" stroke-width="4"/>
+<text x="380" y="60" font-size="34">겨자씨 한 알</text>
+<text x="380" y="94" font-size="22" fill="#5b6474" font-weight="600" style="fill:#5b6474">마가복음 4:31-32</text>
+
+<!-- sky bits -->
+<path d="M60 150l3 7 7 3-7 3-3 7-3-7-7-3 7-3z M700 120l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#e8b65a"/>
+
+<!-- ground -->
+<path d="M8 352q120-22 250-6t250-4 244 2V464q0 28-28 28H36q-28 0-28-28z" fill="#f3ecdd"/>
+<path d="M8 352q120-22 250-6t250-4 244 2" fill="none" stroke="#b9dfa6" stroke-width="10" stroke-linecap="round"/>
+
+<!-- 1 tiny seed -->
+<circle cx="120" cy="318" r="48" fill="#fff" stroke="#e8b65a" stroke-width="4" stroke-dasharray="3 10" stroke-linecap="round"/>
+<g transform="translate(120 322)">
+<ellipse class="o" rx="20" ry="16" fill="#e2b77a"/>
+<circle class="e" cx="-7" cy="-2" r="2.4"/><circle class="e" cx="7" cy="-2" r="2.4"/>
+<path class="m" d="M-4 5q4 3 8 0"/>
+<circle class="ck" cx="-12" cy="4" r="3"/><circle class="ck" cx="12" cy="4" r="3"/>
+</g>
+<path d="M86 264l2 5 5 2-5 2-2 5-2-5-5-2 5-2z M158 270l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#e8b65a"/>
+
+<!-- arrows -->
+<path d="M190 300l14 14-14 14 M212 300l14 14-14 14" stroke="#e8b65a" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M428 300l14 14-14 14 M450 300l14 14-14 14" stroke="#e8b65a" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- 2 sprout with moon and sun -->
+<path d="M282 182q48-46 96 0" fill="none" stroke="#e8b65a" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+<path class="o" d="M282 168a20 20 0 1 0 16 28a16 16 0 1 1-16-28z" fill="#f7e3a8" stroke-width="3"/>
+<g transform="translate(386 186)">
+<g stroke="#e8b65a" stroke-width="4" stroke-linecap="round"><path d="M0-30v-7 M0 30v7 M-30 0h-7 M30 0h7 M-21-21l-5-5 M21-21l5-5 M-21 21l-5 5 M21 21l5 5"/></g>
+<circle class="o" r="18" fill="#e8b65a" stroke-width="3"/>
+</g>
+<text x="250" y="240" font-size="18" style="fill:#8a93a3">z z</text>
+<path class="o" d="M318 346V284" fill="none" stroke="#6aa85a" stroke-width="6"/>
+<path class="o" d="M318 300q-34 2-40-26q30-6 40 26z" fill="#b9dfa6"/>
+<path class="o" d="M318 286q30-4 36-32q-30-4-36 32z" fill="#8fc97a"/>
+<g transform="translate(318 350)">
+<path class="o" d="M-24 0a24 18 0 0 1 48 0z" fill="#e2b77a"/>
+<circle class="e" cx="-8" cy="-7" r="2.4"/><circle class="e" cx="8" cy="-7" r="2.4"/>
+<circle class="ck" cx="-14" cy="-3" r="3"/><circle class="ck" cx="14" cy="-3" r="3"/>
+</g>
+
+<!-- 3 big tree with birds -->
+<path class="o" d="M574 350q6-50 2-110h30q-4 60 4 110z" fill="#b98258"/>
+<g class="o" fill="#8fc97a">
+<path d="M500 236a40 40 0 0 1 20-70a50 50 0 0 1 80-40a48 48 0 0 1 82 30a40 40 0 0 1 4 76q-10 20-40 14q-40 18-70 0q-30 16-56 0q-20 4-20-10z"/>
+</g>
+<g fill="#b9dfa6"><circle cx="560" cy="172" r="16"/><circle cx="630" cy="160" r="12"/><circle cx="660" cy="214" r="10"/></g>
+<g fill="#f4a6a6"><circle cx="530" cy="206" r="6"/><circle cx="604" cy="214" r="6"/><circle cx="676" cy="184" r="6"/></g>
+<!-- birds -->
+<g transform="translate(548 238)">
+<path class="o" d="M-18 6a18 16 0 0 1 32-12l8-2-6 8a18 16 0 0 1-34 6z" fill="#bfe0f2" stroke-width="3"/>
+<circle class="e" cx="4" cy="-4" r="2.2"/><circle class="ck" cx="2" cy="2" r="2.6"/>
+</g>
+<g transform="translate(640 234)">
+<path class="o" d="M18 6a18 16 0 0 0-32-12l-8-2 6 8a18 16 0 0 0 34 6z" fill="#f6c9a8" stroke-width="3"/>
+<circle class="e" cx="-4" cy="-4" r="2.2"/><circle class="ck" cx="-2" cy="2" r="2.6"/>
+</g>
+<g transform="translate(600 120)">
+<path class="o" d="M-16 4a16 14 0 0 1 28-10l8-2-6 8a16 14 0 0 1-30 4z" fill="#e8b65a" stroke-width="3"/>
+<circle class="e" cx="4" cy="-4" r="2.2"/>
+</g>
+<g transform="translate(700 104)" fill="none" stroke="#16233a" stroke-width="3" stroke-linecap="round">
+<path d="M-14 0q7-8 14 0q7-8 14 0"/>
+</g>
+
+<!-- captions -->
+<text class="l" x="116" y="420">아주 작은 씨</text>
+<text class="l" x="330" y="420">자고 깨는</text>
+<text class="l" x="330" y="456">동안에도 자라요</text>
+<text class="l" x="600" y="420">새들이 깃들 만큼</text>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="t d">
+<title id="t">하나님 나라: 이미 시작됐고, 아직 완성되지 않았어요</title>
+<desc id="d">왼쪽에서 오른쪽으로 가는 타임라인. 이미: 언덕 위 십자가와 돌이 굴려진 빈 무덤, 이미 시작됐어요. 지금: 작은 사람들이 싹에 물을 주는 모습, 지금 자라는 중. 아직: 빛에 둘러싸인 생명나무와 강, 다시 오시는 날 완성.</desc>
+<defs>
+<radialGradient id="g"><stop offset="0" stop-color="#fff6d8"/><stop offset=".6" stop-color="#f6dc9c"/><stop offset="1" stop-color="#f6dc9c" stop-opacity="0"/></radialGradient>
+</defs>
+<style>
+text{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans CJK KR','Noto Sans KR',sans-serif;font-weight:800;text-anchor:middle;fill:#16233a}
+.o{stroke:#16233a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.l{font-size:28px}
+.p{font-size:26px;fill:#fbf8f1}
+.ck{fill:#f4a6a6;opacity:.85}
+.e{fill:#16233a}
+.m{stroke:#16233a;stroke-width:2.5;fill:none;stroke-linecap:round}
+</style>
+<rect x="4" y="4" width="792" height="512" rx="36" fill="#fbf8f1" stroke="#f3ecdd" stroke-width="4"/>
+<text x="400" y="58" font-size="34">이미, 그러나 아직</text>
+
+<!-- timeline -->
+<path d="M60 122H730" stroke="#e8b65a" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 0"/>
+<path d="M722 110l14 12-14 12" fill="none" stroke="#e8b65a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="90" y="100" width="100" height="44" rx="22" fill="#16233a"/><text class="p" x="140" y="131">이미</text>
+<rect x="350" y="100" width="100" height="44" rx="22" fill="#e8b65a"/><text class="p" x="400" y="131" style="fill:#16233a">지금</text>
+<rect x="610" y="100" width="100" height="44" rx="22" fill="#16233a"/><text class="p" x="660" y="131">아직</text>
+
+<!-- panels -->
+<rect x="22" y="164" width="236" height="210" rx="28" fill="#f3ecdd"/>
+<rect x="282" y="164" width="236" height="210" rx="28" fill="#eaf4e2"/>
+<rect x="542" y="164" width="236" height="210" rx="28" fill="#fdf1d6"/>
+
+<!-- 1 cross + empty tomb -->
+<path d="M30 352q50-60 110-56t110 40v8q0 22-22 22H52q-22 0-22-14z" fill="#d8cdb6"/>
+<g transform="translate(88 300)">
+<rect class="o" x="-6" y="-92" width="12" height="96" rx="4" fill="#b98258"/>
+<rect class="o" x="-30" y="-70" width="60" height="12" rx="4" fill="#b98258"/>
+</g>
+<g stroke="#e8b65a" stroke-width="4" stroke-linecap="round"><path d="M180 236v-16 M150 246l-10-10 M210 246l10-10"/></g>
+<path class="o" d="M138 336q0-76 48-76t48 76z" fill="#ece4d4"/>
+<path class="o" d="M168 336v-28q0-18 18-18t18 18v28z" fill="#fff6d8"/>
+<circle class="o" cx="236" cy="322" r="18" fill="#c9bfa9"/>
+<path d="M178 284l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#e8b65a"/>
+
+<!-- 2 people watering sprout -->
+<path d="M290 350q110-18 220 0v4q0 20-20 20H310q-20 0-20-20z" fill="#cfe6bf"/>
+<g transform="translate(434 336)">
+<path class="o" d="M0 4v-36" fill="none" stroke="#6aa85a" stroke-width="5"/>
+<path class="o" d="M0-14q-16 0-20-14q16-4 20 14z" fill="#b9dfa6" stroke-width="3"/>
+<path class="o" d="M0-28q22-2 26-22q-22-2-26 22z" fill="#8fc97a" stroke-width="3"/>
+</g>
+<g fill="#bfe0f2"><circle cx="408" cy="306" r="3"/><circle cx="415" cy="317" r="3"/><circle cx="407" cy="326" r="3"/></g>
+<!-- kid with can -->
+<g transform="translate(330 300)">
+<rect class="o" x="-16" y="0" width="32" height="44" rx="12" fill="#f6c9a8"/>
+<circle class="o" cx="0" cy="-20" r="20" fill="#f3c9a0"/>
+<path d="M-20-22q2-20 20-20t20 20q-10-9-20-7t-20 7z" fill="#5a3a22"/>
+<circle class="e" cx="-6" cy="-19" r="2.4"/><circle class="e" cx="7" cy="-19" r="2.4"/>
+<path class="m" d="M-4-11q5 4 10 0"/>
+<circle class="ck" cx="-12" cy="-13" r="3.5"/><circle class="ck" cx="13" cy="-13" r="3.5"/>
+<path class="o" d="M14 14l16-6" fill="none"/>
+<g transform="translate(40 4) rotate(20)">
+<rect class="o" x="-12" y="-12" width="24" height="22" rx="6" fill="#bfe0f2" stroke-width="3"/>
+<path class="o" d="M12-6l16-10" fill="none" stroke-width="4"/>
+</g>
+</g>
+<!-- kid 2 -->
+<g transform="translate(488 300)">
+<rect class="o" x="-16" y="0" width="32" height="44" rx="12" fill="#bfe0f2"/>
+<circle class="o" cx="0" cy="-20" r="20" fill="#9a6440"/>
+<path d="M-20-24q4-18 20-18t20 18q-10-5-20-5t-20 5z" fill="#1f1f1f"/>
+<circle class="e" cx="-7" cy="-19" r="2.4"/><circle class="e" cx="6" cy="-19" r="2.4"/>
+<path class="m" d="M-6-11q5 4 10 0"/>
+<circle class="ck" cx="-13" cy="-13" r="3.5"/><circle class="ck" cx="12" cy="-13" r="3.5"/>
+<path class="o" d="M-14 14q-10-8-10-22" fill="none"/>
+</g>
+<path d="M412 214c-5-7-16-2-11 6l11 9 11-9c5-8-6-13-11-6z" fill="#f4a6a6"/>
+
+<!-- 3 tree of life in light -->
+<circle cx="660" cy="250" r="100" fill="url(#g)"/>
+<g stroke="#e8b65a" stroke-width="4" stroke-linecap="round" opacity=".9"><path d="M660 176v-8 M592 206l-7-5 M728 206l7-5 M574 262h-8 M746 262h8"/></g>
+<path d="M556 352q52-14 104 0t104 0" fill="none" stroke="#bfe0f2" stroke-width="12" stroke-linecap="round"/>
+<path class="o" d="M650 344q4-40 0-74h22q-4 34 2 74z" fill="#b98258"/>
+<path class="o" d="M610 268a28 28 0 0 1 8-50a36 36 0 0 1 62-14a32 32 0 0 1 40 30a26 26 0 0 1-6 40q-20 12-48 4q-30 10-56-10z" fill="#8fc97a"/>
+<g fill="#f6c9a8" class="o" stroke-width="3"><circle cx="630" cy="244" r="7"/><circle cx="668" cy="222" r="7"/><circle cx="700" cy="252" r="7"/><circle cx="660" cy="262" r="7"/></g>
+<path d="M592 300l3 7 7 3-7 3-3 7-3-7-7-3 7-3z M734 296l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#e8b65a"/>
+
+<!-- captions -->
+<text class="l" x="140" y="420">이미 시작됐어요</text>
+<text class="l" x="400" y="420">지금 자라는 중</text>
+<text class="l" x="660" y="420">다시 오시는 날</text>
+<text class="l" x="660" y="456">완성</text>
+</svg>

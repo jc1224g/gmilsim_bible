@@ -1,0 +1,86 @@
+---
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '../styles/global.css';
+import { SITE } from '../../site.config.mjs';
+import { isPreview } from '../lib/posts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  noindex?: boolean;
+}
+
+const { title, description = SITE.description, image = SITE.ogImage, type = 'website', publishedTime, noindex = false } =
+  Astro.props;
+
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — ${SITE.series}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+const path = Astro.url.pathname;
+const current = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'page' : undefined);
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#16233a" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:title" content={title ?? fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} — ${SITE.series}`} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title ?? fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <slot name="head" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">본문으로 건너뛰기</a>
+    {isPreview && <div class="preview-strip">미리보기 빌드 — 공개 전 초안이 함께 보여요. 이 화면은 배포하지 마세요.</div>}
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✦</span>{SITE.name}</a>
+        <nav class="site-nav" aria-label="주 메뉴">
+          <a href="/" aria-current={path === '/' ? 'page' : undefined}>전체 강의</a>
+          <a href="/about/" aria-current={current('/about/')}>소개</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <ul>
+          <li><a href="/">전체 강의 목록</a></li>
+          <li><a href="/about/">이 블로그 소개</a></li>
+          <li><a href="/rss.xml">RSS 구독</a></li>
+        </ul>
+        <p style="margin:0">{SITE.church} · {SITE.name}</p>
+        <p style="margin:0.25rem 0 0;font-size:0.875rem">이 사이트는 방문 기록을 수집하지 않아요. (분석 도구·쿠키 없음)</p>
+      </div>
+    </footer>
+  </body>
+</html>

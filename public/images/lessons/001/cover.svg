@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="t d">
+<title id="t">쉽게 배우는 성경 1강: 하나님 나라, 죽어서 가는 곳일까?</title>
+<desc id="d">표지 그림. 왼쪽에 큰 제목 "하나님 나라, 죽어서 가는 곳일까?"와 "쉽게 배우는 성경 · 1강". 오른쪽 위에는 물음표가 붙은 구름, 아래에는 빛나는 왕관이 웃는 작은 땅(지구) 위에 떠 있고, 땅 위에 집과 나무가 있다.</desc>
+<defs>
+<radialGradient id="g"><stop offset="0" stop-color="#fff6d8"/><stop offset=".55" stop-color="#f6dc9c" stop-opacity=".9"/><stop offset="1" stop-color="#f6dc9c" stop-opacity="0"/></radialGradient>
+</defs>
+<style>
+text{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans CJK KR','Noto Sans KR',sans-serif;font-weight:800;fill:#16233a}
+.o{stroke:#16233a;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.ck{fill:#f4a6a6;opacity:.85}
+.e{fill:#16233a}
+</style>
+<rect width="1200" height="630" fill="#f7f2e8"/>
+<circle cx="1110" cy="90" r="150" fill="#f3ecdd"/>
+<circle cx="60" cy="600" r="120" fill="#f3ecdd"/>
+<rect x="24" y="24" width="1152" height="582" rx="40" fill="none" stroke="#e8b65a" stroke-width="4" stroke-dasharray="2 14" stroke-linecap="round"/>
+
+<!-- text -->
+<rect x="80" y="118" width="372" height="60" rx="30" fill="#16233a"/>
+<text x="266" y="159" font-size="31" text-anchor="middle" style="fill:#fbf8f1">쉽게 배우는 성경 · 1강</text>
+<text x="76" y="300" font-size="78">하나님 나라,</text>
+<text x="76" y="402" font-size="78">죽어서 가는 곳일까?</text>
+<path d="M82 450q60-16 120 0t120 0 120 0" fill="none" stroke="#e8b65a" stroke-width="8" stroke-linecap="round"/>
+
+<!-- cloud with question mark -->
+<g transform="translate(985 160)">
+<path class="o" d="M-110 40a36 36 0 0 1 10-66a50 50 0 0 1 90-20a46 46 0 0 1 84 16a36 36 0 0 1 30 70z" fill="#fff"/>
+<circle class="ck" cx="-46" cy="18" r="7"/><circle class="ck" cx="20" cy="18" r="7"/>
+<circle class="e" cx="-36" cy="8" r="4"/><circle class="e" cx="10" cy="8" r="4"/>
+<path d="M-20 22q7 5 14 0" stroke="#16233a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</g>
+<g transform="translate(1110 104)">
+<circle class="o" r="38" fill="#e8b65a"/>
+<text x="0" y="22" font-size="60" text-anchor="middle" style="fill:#16233a">?</text>
+</g>
+
+<!-- crown over little earth -->
+<circle cx="990" cy="400" r="150" fill="url(#g)"/>
+<g stroke="#e8b65a" stroke-width="6" stroke-linecap="round"><path d="M990 268v-18 M920 300l-12-12 M1060 300l12-12"/></g>
+<g transform="translate(990 330)">
+<path class="o" d="M-50 20V-22l24 20L0-36 26-2l24-20v42z" fill="#e8b65a"/>
+<rect class="o" x="-52" y="18" width="104" height="18" rx="7" fill="#f2c977"/>
+<circle class="o" cx="-50" cy="-26" r="7" fill="#f6c9a8"/><circle class="o" cx="0" cy="-40" r="8" fill="#f4a6a6"/><circle class="o" cx="50" cy="-26" r="7" fill="#bfe0f2"/>
+</g>
+<g transform="translate(990 500)">
+<circle class="o" r="74" fill="#bfe0f2"/>
+<path d="M-60-28q20-14 38 0t14 26q-18 12-34 2t-18-28z M14 16q24-12 44 4q-4 26-26 32q-20-8-18-36z" fill="#b9dfa6"/>
+<circle class="e" cx="-16" cy="10" r="4"/><circle class="e" cx="10" cy="10" r="4"/>
+<path d="M-11 24q8 6 16 0" stroke="#16233a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-30" cy="20" r="6"/><circle class="ck" cx="24" cy="20" r="6"/>
+</g>
+<g transform="translate(950 442) rotate(-33)">
+<rect class="o" x="-18" y="-28" width="36" height="30" rx="5" fill="#fbf8f1" stroke-width="4"/>
+<path class="o" d="M-25-26L0-48 25-26z" fill="#f4a6a6" stroke-width="4"/>
+<rect x="-6" y="-16" width="12" height="16" rx="3" fill="#e8b65a"/>
+</g>
+<g transform="translate(1030 442) rotate(33)">
+<rect x="-5" y="-24" width="10" height="26" rx="3" fill="#a8754f" class="o" stroke-width="4"/>
+<circle class="o" cx="0" cy="-40" r="20" fill="#8fc97a" stroke-width="4"/>
+</g>
+<path d="M870 470l4 9 9 4-9 4-4 9-4-9-9-4 9-4z M1112 440l4 8 8 4-8 4-4 8-4-8-8-4 8-4z" fill="#e8b65a"/>
+</svg>

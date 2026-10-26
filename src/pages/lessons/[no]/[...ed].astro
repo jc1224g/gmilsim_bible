@@ -1,0 +1,145 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Tldr from '../../../components/Tldr.astro';
+import WordCards from '../../../components/WordCards.astro';
+import Quiz from '../../../components/Quiz.astro';
+import NextBox from '../../../components/NextBox.astro';
+import Shorts from '../../../components/Shorts.astro';
+import FromBox from '../../../components/FromBox.astro';
+import EditionTabs from '../../../components/EditionTabs.astro';
+import { render } from 'astro:content';
+import { existsSync } from 'node:fs';
+import { getAllEditions, isPublic, seasonUrl, seasonName, fromList, formatDate, editionLabel, postUrl, partLabel, partOf, EDITIONS, type Post } from '../../../lib/posts';
+
+// 한 강(no)에 판(청소년·청년·장년)이 여러 개. 대표 판(있는 것 중 맨 앞)은 /lessons/1/, 나머지는 /lessons/1/young/ 처럼.
+export async function getStaticPaths() {
+  const all = await getAllEditions();
+  const lessons = new Map<number, Post[]>();
+  for (const p of all) lessons.set(p.data.no, [...(lessons.get(p.data.no) ?? []), p]);
+
+  // eds는 (판 순서, 편 순서)로 정렬돼 있어요. 대표 판 = 맨 앞 글의 판. 편이 있으면 2편부터 /2/ 가 붙어요.
+  const urlOf = (eds: Post[], p: Post) => postUrl(p, p.data.edition === eds[0].data.edition);
+  // 이전·다음 이동은 실제 강끼리만 (테스트 글은 건너뜀). 같은 판이 있으면 그 판으로.
+  // 다음 강은 그 강의 첫 편, 이전 강은 그 강의 마지막 편.
+  const real = [...lessons.values()].filter((eds) => !eds[0].data.test);
+  const link = (eds: Post[] | undefined, edition: string, last: boolean) => {
+    if (!eds) return undefined;
+    const same = eds.filter((x) => x.data.edition === edition);
+    const pool = same.length ? same : eds.filter((x) => x.data.edition === eds[0].data.edition);
+    const p = last ? pool[pool.length - 1] : pool[0];
+    return { url: urlOf(eds, p), no: p.data.no, title: p.data.title, part: p.data.part ? partLabel(p) : undefined };
+  };
+
+  return [...lessons.values()].flatMap((eds) => {
+    const i = real.indexOf(eds);
+    return eds.map((post) => {
+      const ed = post.data.edition;
+      // 판 탭: 같은 편 번호의 다른 판, 없으면 그 판의 첫 편
+      const tabs = EDITIONS.flatMap((e) => {
+        const inEd = eds.filter((x) => x.data.edition === e.key);
+        const t = inEd.find((x) => partOf(x) === partOf(post)) ?? inEd[0];
+        return t ? [{ edition: e.key, url: urlOf(eds, t) }] : [];
+      });
+      // 같은 판 안의 편들
+      const parts = eds
+        .filter((x) => x.data.edition === ed)
+        .map((x) => ({ label: partLabel(x), url: urlOf(eds, x), current: x === post }));
+      const sameEd = eds.filter((x) => x.data.edition === ed);
+      const nextPart = sameEd[sameEd.indexOf(post) + 1];
+      const primary = ed === eds[0].data.edition;
+      const seg = [primary ? '' : ed, partOf(post) > 1 ? String(partOf(post)) : ''].filter(Boolean).join('/');
+      return {
+        params: { no: String(post.data.no), ed: seg || undefined },
+        props: {
+          post,
+          primary,
+          tabs,
+          parts: parts.length > 1 ? parts : [],
+          nextPart: nextPart ? { url: urlOf(eds, nextPart), label: partLabel(nextPart) } : undefined,
+          prev: i > 0 ? link(real[i - 1], ed, true) : undefined,
+          next: i >= 0 ? link(real[i + 1], ed, false) : undefined,
+        },
+      };
+    });
+  });
+}
+
+type Link = { url: string; no: number; title: string; part?: string };
+interface Props {
+  post: Post;
+  primary: boolean;
+  tabs: { edition: string; url: string }[];
+  parts: { label: string; url: string; current: boolean }[];
+  nextPart?: { url: string; label: string };
+  prev?: Link;
+  next?: Link;
+}
+const { post, primary, tabs, parts, nextPart, prev, next } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+// 읽는 시간: 주석·그림·마크다운 기호를 뺀 본문 글자 수 ÷ 분당 500자
+const plain = (post.body ?? '')
+  .replace(/<!--[\s\S]*?-->/g, '')
+  .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+  .replace(/[#>*`:\[\]]/g, '');
+const minutes = Math.max(1, Math.round(plain.trim().length / 500));
+// 대표 판(/lessons/1/)은 제목에 판 이름을 붙이지 않음 — 공유할 때 "(청소년)"이 붙지 않게
+// 카톡·SNS 미리보기 이미지: public/images/lessons/001/cover.png 가 있으면 그 강 표지, 없으면 사이트 기본 이미지
+const coverPath = `/images/lessons/${String(d.no).padStart(3, '0')}/cover.png`;
+const cover = existsSync(`${process.cwd()}/public${coverPath}`) ? coverPath : undefined;
+const lessonHead = d.part ? `제${d.no}강 ${partLabel(post)} — ${d.title}` : `제${d.no}강 ${d.title}`;
+const pageTitle = primary ? lessonHead : `${lessonHead} (${editionLabel(d.edition)})`;
+---
+
+<Base title={pageTitle} image={cover} description={d.summary} type="article" publishedTime={d.date} noindex={d.test}>
+  <article class="wrap">
+    <EditionTabs tabs={tabs} current={d.edition} />
+    {!isPublic(post) && (
+      <div class="draft-banner" role="note">
+        초안 — 공개 전
+        <small>{d.test ? '테스트용 가짜 글이에요. 실제 콘텐츠가 아니에요.' : `draft: ${d.draft} · approved: ${d.approved} — 승인 전에는 실제 사이트에 나오지 않아요.`}</small>
+      </div>
+    )}
+    {parts.length > 0 && (
+      <nav class="part-nav" aria-label="이 강의 편">
+        {parts.map((x, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true" style="border:0;padding:0.4rem 0">·</span>}
+            <a href={x.url} aria-current={x.current ? 'page' : undefined}>{x.label}</a>
+          </>
+        ))}
+      </nav>
+    )}
+    <header class="post-head">
+      <span class="chip"><a href={seasonUrl(d.season)}>{seasonName(d.season)}</a> · 제{d.no}강{d.part ? ` ${partLabel(post)}` : ''} · {editionLabel(d.edition)}</span>
+      {d.test && <> <span class="test-flag">테스트</span></>}
+      <h1>{d.title}</h1>
+      <p class="post-meta"><time datetime={d.date.toISOString().slice(0, 10)}>{formatDate(d.date)}</time> · 읽는 시간 약 {minutes}분</p>
+    </header>
+
+    {d.tldr ? <Tldr items={d.tldr} /> : <p class="post-lead">{d.summary}</p>}
+
+    <div class="prose">
+      <Content />
+      {d.words && d.words.length > 0 && <WordCards words={d.words} />}
+      {d.quiz && d.quiz.length > 0 && <Quiz items={d.quiz} />}
+      {d.shorts && <Shorts id={d.shorts} title={d.title} />}
+      {d.next && <NextBox text={d.next} />}
+    </div>
+
+    <FromBox items={fromList(post)} />
+
+    {nextPart && (
+      <a class="next-part" href={nextPart.url}><span class="dir">다음 편 →</span>{nextPart.label}</a>
+    )}
+
+    <nav class="pager" aria-label="이전·다음 강">
+      {prev ? (
+        <a href={prev.url} rel="prev"><span class="dir">← 이전 강</span>제{prev.no}강 {prev.part ? `${prev.part} — ` : ''}{prev.title}</a>
+      ) : <span class="spacer"></span>}
+      {next ? (
+        <a class="next" href={next.url} rel="next"><span class="dir">다음 강 →</span>제{next.no}강 {next.part ? `${next.part} — ` : ''}{next.title}</a>
+      ) : <a class="next" href="/"><span class="dir">목록</span>전체 강의 목록으로</a>}
+    </nav>
+  </article>
+</Base>

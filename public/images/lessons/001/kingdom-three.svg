@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" role="img" aria-labelledby="t d">
+<title id="t">하나님 나라의 세 가지: 주권, 백성, 영토</title>
+<desc id="d">사회 시간의 나라의 3요소를 하나님 나라에 맞춘 그림. 빛나는 왕관은 주권(누가 다스려요? 하나님이 왕), 손잡은 여러 사람은 백성(누가 그 나라 사람? 부르심 받은 사람들), 나무와 집이 있는 둥근 땅은 영토(어디까지? 온 땅)를 나타내고, 세 동그라미가 둥근 선 하나로 묶여 있다.</desc>
+<style>
+text{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans CJK KR','Noto Sans KR',sans-serif;font-weight:700;text-anchor:middle}
+.o{stroke:#16233a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.q{font-size:26px;fill:#5b6474;font-weight:600}
+.a{font-size:29px;fill:#16233a;font-weight:800}
+.k{font-size:26px;fill:#fbf8f1;font-weight:800}
+.ck{fill:#f4a6a6;opacity:.85}
+</style>
+<rect x="4" y="4" width="712" height="532" rx="36" fill="#fbf8f1" stroke="#f3ecdd" stroke-width="4"/>
+<!-- title -->
+<text x="360" y="64" font-size="40" fill="#16233a" font-weight="800">하나님 나라</text>
+<path d="M220 42l4 9 9 4-9 4-4 9-4-9-9-4 9-4z M500 42l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#e8b65a"/>
+<!-- binding loop -->
+<rect x="16" y="100" width="688" height="232" rx="116" fill="#f3ecdd" opacity=".55"/>
+<rect x="16" y="100" width="688" height="232" rx="116" fill="none" stroke="#e8b65a" stroke-width="5" stroke-dasharray="2 13" stroke-linecap="round"/>
+<path d="M217 216h51 M452 216h51" stroke="#e8b65a" stroke-width="6" stroke-linecap="round"/>
+<circle cx="242" cy="216" r="7" fill="#e8b65a"/><circle cx="478" cy="216" r="7" fill="#e8b65a"/>
+
+<!-- 1 sovereignty: crown with light -->
+<circle cx="125" cy="216" r="92" fill="#f9e6bd" class="o" stroke-width="3"/>
+<g stroke="#e8b65a" stroke-width="6" stroke-linecap="round" opacity=".9">
+<path d="M125 132v18 M68 160l12 12 M182 160l-12 12 M50 214h17 M200 214h-17"/>
+</g>
+<g transform="translate(125 222)">
+<path class="o" d="M-48 22V-20l22 20L0-34 26 0l22-20v42z" fill="#e8b65a"/>
+<rect class="o" x="-50" y="20" width="100" height="18" rx="7" fill="#f2c977"/>
+<circle class="o" cx="-48" cy="-24" r="7" fill="#f6c9a8"/><circle class="o" cx="0" cy="-38" r="8" fill="#f4a6a6"/><circle class="o" cx="48" cy="-24" r="7" fill="#bfe0f2"/>
+<circle cx="0" cy="29" r="5" fill="#bfe0f2"/><circle cx="-28" cy="29" r="4" fill="#b9dfa6"/><circle cx="28" cy="29" r="4" fill="#b9dfa6"/>
+</g>
+<path d="M66 256l3 7 7 3-7 3-3 7-3-7-7-3 7-3z M186 252l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#e8b65a"/>
+<rect x="77" y="290" width="96" height="44" rx="22" fill="#16233a"/>
+<text class="k" x="125" y="321">주권</text>
+
+<!-- 2 people holding hands -->
+<circle cx="360" cy="216" r="92" fill="#fbe3d2" class="o" stroke-width="3"/>
+<g stroke="#16233a" stroke-width="4" stroke-linecap="round" fill="none">
+<path d="M309 228q7 6 14 0 M353 228q7 6 14 0 M397 228q7 6 14 0"/>
+</g>
+<!-- p1 grandmother -->
+<g transform="translate(294 214)">
+<rect class="o" x="-15" y="-2" width="30" height="42" rx="12" fill="#b9dfa6"/>
+<circle cx="0" cy="-40" r="9" fill="#d9d9d9" class="o" stroke-width="3"/>
+<circle class="o" cx="0" cy="-20" r="18" fill="#f6d2b0"/>
+<path d="M-17-24q4-14 17-14t17 14q-8-6-17-6t-17 6z" fill="#d9d9d9"/>
+<circle cx="-6" cy="-19" r="2.4" fill="#16233a"/><circle cx="6" cy="-19" r="2.4" fill="#16233a"/>
+<path d="M-5-11q5 4 10 0" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-11" cy="-13" r="3.5"/><circle class="ck" cx="11" cy="-13" r="3.5"/>
+</g>
+<!-- p2 boy -->
+<g transform="translate(338 214)">
+<rect class="o" x="-15" y="-2" width="30" height="42" rx="12" fill="#bfe0f2"/>
+<circle class="o" cx="0" cy="-20" r="18" fill="#c48a5e"/>
+<path d="M-18-22q2-18 18-18t18 18q-10-8-18-6t-18 6z" fill="#16233a"/>
+<circle cx="-6" cy="-19" r="2.4" fill="#16233a"/><circle cx="6" cy="-19" r="2.4" fill="#16233a"/>
+<path d="M-5-11q5 4 10 0" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-11" cy="-13" r="3.5"/><circle class="ck" cx="11" cy="-13" r="3.5"/>
+</g>
+<!-- p3 small girl -->
+<g transform="translate(382 222)">
+<rect class="o" x="-14" y="-2" width="28" height="34" rx="11" fill="#f6c9a8"/>
+<circle class="o" cx="18" cy="-26" r="7" fill="#7a4b2e"/>
+<circle class="o" cx="0" cy="-18" r="17" fill="#f3c9a0"/>
+<path d="M-17-20q2-16 17-16t17 16q-9-9-17-7t-17 7z" fill="#7a4b2e"/>
+<circle cx="-6" cy="-17" r="2.4" fill="#16233a"/><circle cx="6" cy="-17" r="2.4" fill="#16233a"/>
+<path d="M-5-9q5 4 10 0" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-10" cy="-11" r="3.5"/><circle class="ck" cx="10" cy="-11" r="3.5"/>
+</g>
+<!-- p4 man -->
+<g transform="translate(426 214)">
+<rect class="o" x="-15" y="-2" width="30" height="42" rx="12" fill="#e8b65a"/>
+<circle class="o" cx="0" cy="-20" r="18" fill="#8d5a3b"/>
+<path d="M-18-24q4-16 18-16t18 16q-8-4-18-4t-18 4z" fill="#2b2b2b"/>
+<circle cx="-6" cy="-19" r="2.4" fill="#16233a"/><circle cx="6" cy="-19" r="2.4" fill="#16233a"/>
+<path d="M-5-11q5 4 10 0" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-11" cy="-13" r="3.5"/><circle class="ck" cx="11" cy="-13" r="3.5"/>
+</g>
+<path d="M360 150c-6-8-18-2-12 7l12 10 12-10c6-9-6-15-12-7z" fill="#f4a6a6"/>
+<rect x="312" y="290" width="96" height="44" rx="22" fill="#16233a"/>
+<text class="k" x="360" y="321">백성</text>
+
+<!-- 3 land: round earth with tree and house -->
+<circle cx="595" cy="216" r="92" fill="#e2f0f8" class="o" stroke-width="3"/>
+<g transform="translate(595 240)">
+<circle class="o" r="50" fill="#bfe0f2"/>
+<path d="M-38-22q14-10 26 0t10 18q-12 8-24 2t-12-20z M10 10q16-8 30 2q-2 18-18 22q-14-6-12-24z M14-40q12 0 18 10q-10 4-18-2z" fill="#b9dfa6"/>
+<circle cx="-14" cy="6" r="2.6" fill="#16233a"/><circle cx="2" cy="6" r="2.6" fill="#16233a"/>
+<path d="M-11 15q5 4 10 0" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-21" cy="12" r="3.5"/><circle class="ck" cx="9" cy="12" r="3.5"/>
+</g>
+<g transform="translate(572 172)">
+<rect class="o" x="-16" y="-6" width="32" height="26" rx="4" fill="#f7f2e8"/>
+<path class="o" d="M-22-4L0-24 22-4z" fill="#f4a6a6"/>
+<rect x="-5" y="6" width="10" height="14" rx="3" fill="#e8b65a"/>
+</g>
+<g transform="translate(624 176)">
+<rect x="-4" y="-2" width="8" height="20" rx="3" fill="#a8754f" class="o" stroke-width="3"/>
+<circle class="o" cx="0" cy="-16" r="17" fill="#8fc97a"/>
+</g>
+<rect x="547" y="290" width="96" height="44" rx="22" fill="#16233a"/>
+<text class="k" x="595" y="321">영토</text>
+
+<!-- questions -> answers -->
+<text class="q" x="125" y="386">누가 다스려요?</text>
+<text class="q" x="360" y="386">누가 그 나라 사람?</text>
+<text class="q" x="595" y="386">어디까지?</text>
+<path d="M113 404l12 12 12-12 M348 404l12 12 12-12 M583 404l12 12 12-12" stroke="#e8b65a" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text class="a" x="125" y="460">하나님이 왕</text>
+<text class="a" x="360" y="460">부르심 받은</text>
+<text class="a" x="360" y="496">사람들</text>
+<text class="a" x="595" y="460">온 땅</text>
+</svg>

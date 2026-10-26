@@ -1,0 +1,47 @@
+---
+// O/X 퀴즈. 자바스크립트가 없어도 「정답 보기」를 눌러 답을 볼 수 있어요.
+// 답한 내용은 어디에도 저장·전송하지 않아요.
+interface Props { items: { q: string; answer: 'O' | 'X'; explain?: string }[] }
+const { items } = Astro.props;
+---
+<section aria-labelledby="quiz-title">
+  <h2 id="quiz-title">O/X 퀴즈</h2>
+  <ol class="quiz">
+    {items.map((it, i) => (
+      <li class="quiz-item" data-answer={it.answer}>
+        <p class="quiz-q">Q{i + 1}. {it.q}</p>
+        <div class="quiz-buttons" role="group" aria-label={`Q${i + 1} 답 고르기`}>
+          <button type="button" data-pick="O" aria-pressed="false">O</button>
+          <button type="button" data-pick="X" aria-pressed="false">X</button>
+        </div>
+        <p class="quiz-feedback" aria-live="polite"></p>
+        <details>
+          <summary>정답 보기</summary>
+          <p><strong>정답: {it.answer}</strong>{it.explain && <> — {it.explain}</>}</p>
+        </details>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.quiz-item').forEach((item) => {
+    const answer = item.dataset.answer;
+    const feedback = item.querySelector<HTMLElement>('.quiz-feedback')!;
+    const details = item.querySelector('details')!;
+    const buttons = item.querySelectorAll<HTMLButtonElement>('button[data-pick]');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const right = btn.dataset.pick === answer;
+        buttons.forEach((b) => {
+          b.setAttribute('aria-pressed', String(b === btn));
+          b.classList.remove('right', 'wrong');
+        });
+        btn.classList.add(right ? 'right' : 'wrong');
+        feedback.textContent = right ? '맞았어요!' : '아쉬워요. 다시 생각해 볼까요?';
+        feedback.className = 'quiz-feedback ' + (right ? 'right' : 'wrong');
+        if (right) details.open = true;
+      });
+    });
+  });
+</script>

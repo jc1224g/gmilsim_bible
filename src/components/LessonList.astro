@@ -1,0 +1,21 @@
+---
+import { postUrl, isPublic, getAllEditions, partCount, type Post } from '../lib/posts';
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+const all = await getAllEditions();
+---
+<ol class="lesson-list">
+  {posts.map((p) => (
+    <li>
+      <a href={postUrl(p)}>
+        <span class="lesson-no">제{p.data.no}강</span>
+        <span class="lesson-title">
+          {p.data.title}
+          {partCount(all, p) > 1 && <span class="lesson-flag">{partCount(all, p)}편</span>}
+          {p.data.test && <span class="lesson-flag">테스트</span>}
+          {!isPublic(p) && <span class="lesson-flag">초안</span>}
+        </span>
+      </a>
+    </li>
+  ))}
+</ol>

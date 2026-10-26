@@ -1,0 +1,57 @@
+---
+// 강 페이지 맨 위 판 탭: 청소년 · 청년 · 장년. 아직 없는 판은 「준비 중」으로 흐리게.
+import { EDITIONS } from '../lib/posts';
+
+interface Props { tabs: { edition: string; url: string }[]; current: string }
+const { tabs, current } = Astro.props;
+---
+<nav class="edition-tabs" aria-label="읽는 사람에 맞춘 판">
+  {EDITIONS.map((e) => {
+    const tab = tabs.find((t) => t.edition === e.key);
+    if (!tab) return <span class="tab off" aria-disabled="true">{e.label}<small>준비 중</small></span>;
+    return (
+      <a class="tab" href={tab.url} aria-current={e.key === current ? 'page' : undefined}>
+        {e.label}<small>{e.note}</small>
+      </a>
+    );
+  })}
+</nav>
+
+<style>
+  .edition-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+    margin: 1.25rem 0;
+    padding: 0.3rem;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    padding: 0.55rem 0.25rem;
+    border-radius: calc(var(--radius) - 4px);
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+    line-height: 1.25;
+    min-height: 44px;
+    justify-content: center;
+  }
+  .tab small {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-sub);
+  }
+  a.tab:hover { background: var(--surface); }
+  .tab[aria-current='page'] {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .tab[aria-current='page'] small { color: var(--bg); opacity: 0.85; }
+  .tab.off { opacity: 0.45; }
+</style>

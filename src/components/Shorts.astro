@@ -1,0 +1,37 @@
+---
+// 유튜브 쇼츠. 처음에는 유튜브에 아무 요청도 보내지 않고,
+// 재생 버튼을 누를 때만 youtube-nocookie 플레이어를 불러옵니다.
+interface Props { id: string; title: string }
+const { id, title } = Astro.props;
+const watch = `https://www.youtube.com/shorts/${id}`;
+---
+<section aria-labelledby="shorts-title">
+  <h2 id="shorts-title">쇼츠로 보기</h2>
+  <figure class="shorts">
+    <div class="shorts-frame" data-yt={id} data-title={title}>
+      <a class="shorts-play" href={watch} target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">▶</span>
+        <span class="t">쇼츠 재생</span>
+        <small>누르면 유튜브 플레이어를 불러와요.<br />그 전에는 유튜브로 아무것도 보내지 않아요.</small>
+      </a>
+    </div>
+    <figcaption><a href={watch} target="_blank" rel="noopener">유튜브에서 보기 ↗</a></figcaption>
+  </figure>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.shorts-frame[data-yt]').forEach((frame) => {
+    const link = frame.querySelector('a');
+    link?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${frame.dataset.yt}?autoplay=1&rel=0&playsinline=1`;
+      iframe.title = frame.dataset.title || '유튜브 쇼츠';
+      iframe.loading = 'lazy';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      frame.replaceChildren(iframe);
+    });
+  });
+</script>

@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import LessonList from '../components/LessonList.astro';
+import { SITE } from '../../site.config.mjs';
+import { getPosts, groupBySeason, postUrl, seasonUrl, seasonName, formatDate } from '../lib/posts';
+
+const posts = await getPosts();
+const seasons = groupBySeason(posts);
+const latest = posts.filter((p) => !p.data.test).sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || b.data.no - a.data.no)[0];
+---
+
+<Base>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{SITE.church} · {SITE.series}</p>
+      <h1>{SITE.name}</h1>
+      <p>교회에서 들은 설교를 청소년·청년·장년이 각자 읽기 좋게 풀어 썼어요.</p>
+      <p>성경 전체를 꿰는 한 단어, <strong style="color:#e8b65a">하나님 나라</strong>를 한 강씩 따라가 봐요.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <h2 class="section-title">이렇게 읽어요</h2>
+    <ol class="steps">
+      <li><strong>내게 맞는 판 고르기</strong>강마다 위쪽 탭에서 청소년(5분) · 청년(15분) · 장년(20분)을 골라요.</li>
+      <li><strong>요약부터</strong>바쁘면 맨 위 요약만 읽어도 괜찮아요.</li>
+      <li><strong>본문은 천천히</strong>청소년판은 퀴즈로, 장년판은 나눔 질문으로 마무리해요.</li>
+    </ol>
+
+    {latest ? (
+      <>
+        <h2 class="section-title">최신 강의</h2>
+        <a class="card" href={postUrl(latest)}>
+          <span class="chip">제{latest.data.no}강 · {formatDate(latest.data.date)}</span>
+          <h3>{latest.data.title}</h3>
+          <p>{latest.data.summary}</p>
+          <span class="more">읽으러 가기 →</span>
+        </a>
+
+        <h2 class="section-title">전체 강의 목록</h2>
+        {seasons.map(([s, list]) => (
+          <section>
+            <div class="season-head">
+              <h3>{seasonName(s)}</h3>
+              <a href={seasonUrl(s)}>시즌 모아 보기</a>
+            </div>
+            <LessonList posts={list} />
+          </section>
+        ))}
+      </>
+    ) : (
+      <>
+        <h2 class="section-title">전체 강의 목록</h2>
+        <div class="empty">
+          <p class="big" aria-hidden="true">✦</p>
+          <h3>첫 강을 준비하고 있어요</h3>
+          <p>곧 제1강이 올라와요. 조금만 기다려 주세요.</p>
+          <p style="margin-top:0.75rem"><a href="/rss.xml">RSS로 새 글 알림 받기</a></p>
+        </div>
+      </>
+    )}
+  </div>
+</Base>
