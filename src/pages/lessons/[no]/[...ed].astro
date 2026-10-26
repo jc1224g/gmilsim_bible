@@ -9,7 +9,7 @@ import FromBox from '../../../components/FromBox.astro';
 import EditionTabs from '../../../components/EditionTabs.astro';
 import { render } from 'astro:content';
 import { existsSync } from 'node:fs';
-import { getAllEditions, isPublic, seasonUrl, seasonName, fromList, formatDate, editionLabel, postUrl, partLabel, partOf, EDITIONS, type Post } from '../../../lib/posts';
+import { getAllEditions, isPublic, seasonUrl, seasonName, fromList, formatDate, editionLabel, postUrl, withBase, partLabel, partOf, EDITIONS, type Post } from '../../../lib/posts';
 
 // 한 강(no)에 판(청소년·청년·장년)이 여러 개. 대표 판(있는 것 중 맨 앞)은 /lessons/1/, 나머지는 /lessons/1/young/ 처럼.
 export async function getStaticPaths() {
@@ -86,7 +86,7 @@ const minutes = Math.max(1, Math.round(plain.trim().length / 500));
 // 대표 판(/lessons/1/)은 제목에 판 이름을 붙이지 않음 — 공유할 때 "(청소년)"이 붙지 않게
 // 카톡·SNS 미리보기 이미지: public/images/lessons/001/cover.png 가 있으면 그 강 표지, 없으면 사이트 기본 이미지
 const coverPath = `/images/lessons/${String(d.no).padStart(3, '0')}/cover.png`;
-const cover = existsSync(`${process.cwd()}/public${coverPath}`) ? coverPath : undefined;
+const cover = existsSync(`${process.cwd()}/public${coverPath}`) ? coverPath : undefined; // Base에서 하위 경로를 붙임
 const lessonHead = d.part ? `제${d.no}강 ${partLabel(post)} — ${d.title}` : `제${d.no}강 ${d.title}`;
 const pageTitle = primary ? lessonHead : `${lessonHead} (${editionLabel(d.edition)})`;
 ---
@@ -139,7 +139,7 @@ const pageTitle = primary ? lessonHead : `${lessonHead} (${editionLabel(d.editio
       ) : <span class="spacer"></span>}
       {next ? (
         <a class="next" href={next.url} rel="next"><span class="dir">다음 강 →</span>제{next.no}강 {next.part ? `${next.part} — ` : ''}{next.title}</a>
-      ) : <a class="next" href="/"><span class="dir">목록</span>전체 강의 목록으로</a>}
+      ) : <a class="next" href={withBase('/')}><span class="dir">목록</span>전체 강의 목록으로</a>}
     </nav>
   </article>
 </Base>

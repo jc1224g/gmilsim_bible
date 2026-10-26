@@ -1,10 +1,10 @@
 # 「쉽게 배우는 성경」 블로그 (정적 사이트)
 
 광명일심교회 「쉽게 배우는 성경」(10대·20대, 해요체, 하나님 나라 52강) 블로그입니다.
-[Astro](https://astro.build)로 만든 정적 사이트이고, 주소는 `https://bible.gmilsim.org`(GitHub Pages)로 정해졌습니다.
+[Astro](https://astro.build)로 만든 정적 사이트이고, GitHub Pages(`https://jc1224g.github.io/gmilsim_bible/`)에 올린 뒤 교회 홈페이지(Google Sites) 설교란에 삽입해서 보여 줍니다(목사 결정 2026-10-26, 별도 도메인 안 씀).
 주보·홈 화면은 지금처럼 Apps Script 웹앱을 계속 씁니다.
 
-> 아직 배포하지 않았습니다. 저장소 만들기, push, DNS 설정은 아래 「배포 전 할 일」을 마친 뒤에 합니다.
+> 2026-10-26 첫 배포. 하위 경로는 `site.config.mjs`의 `SITE_BASE` 한 곳에서 정합니다. 아래 「배포 전 할 일」의 도메인·DNS 항목은 쓰지 않습니다.
 
 ## 준비
 

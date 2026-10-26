@@ -2,7 +2,7 @@
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import '../styles/global.css';
 import { SITE } from '../../site.config.mjs';
-import { isPreview } from '../lib/posts';
+import { isPreview, withBase } from '../lib/posts';
 
 interface Props {
   title?: string;
@@ -18,9 +18,10 @@ const { title, description = SITE.description, image = SITE.ogImage, type = 'web
 
 const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — ${SITE.series}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL(image, Astro.site).href;
+const ogImage = new URL(image.startsWith('/') ? withBase(image) : image, Astro.site).href;
 const path = Astro.url.pathname;
-const current = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'page' : undefined);
+const home = withBase('/');
+const current = (p: string) => (path === withBase(p) || (p !== '/' && path.startsWith(withBase(p))) ? 'page' : undefined);
 ---
 
 <!doctype html>
@@ -34,9 +35,9 @@ const current = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) 
     {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#16233a" />
     <meta name="color-scheme" content="light dark" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href={withBase('/rss.xml')} />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.name} />
@@ -61,10 +62,10 @@ const current = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) 
     {isPreview && <div class="preview-strip">미리보기 빌드 — 공개 전 초안이 함께 보여요. 이 화면은 배포하지 마세요.</div>}
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✦</span>{SITE.name}</a>
+        <a class="brand" href={home}><span class="brand-mark" aria-hidden="true">✦</span>{SITE.name}</a>
         <nav class="site-nav" aria-label="주 메뉴">
-          <a href="/" aria-current={path === '/' ? 'page' : undefined}>전체 강의</a>
-          <a href="/about/" aria-current={current('/about/')}>소개</a>
+          <a href={home} aria-current={path === home ? 'page' : undefined}>전체 강의</a>
+          <a href={withBase('/about/')} aria-current={current('/about/')}>소개</a>
         </nav>
       </div>
     </header>
@@ -74,9 +75,9 @@ const current = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) 
     <footer class="site-footer">
       <div class="wrap">
         <ul>
-          <li><a href="/">전체 강의 목록</a></li>
-          <li><a href="/about/">이 블로그 소개</a></li>
-          <li><a href="/rss.xml">RSS 구독</a></li>
+          <li><a href={home}>전체 강의 목록</a></li>
+          <li><a href={withBase('/about/')}>이 블로그 소개</a></li>
+          <li><a href={withBase('/rss.xml')}>RSS 구독</a></li>
         </ul>
         <p style="margin:0">{SITE.church} · {SITE.name}</p>
         <p style="margin:0.25rem 0 0;font-size:0.875rem">이 사이트는 방문 기록을 수집하지 않아요. (분석 도구·쿠키 없음)</p>

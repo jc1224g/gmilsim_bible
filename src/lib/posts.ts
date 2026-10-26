@@ -7,6 +7,9 @@ export type Post = CollectionEntry<'posts'>;
 export const isPreview = process.env.PREVIEW === '1';
 
 /** 공개 조건: 승인됐고(approved: true) 초안이 아닌 글(draft가 true가 아님) */
+/** 사이트 안 주소에 하위 경로(base)를 붙여요. 예: withBase('/about/') → '/gmilsim_bible/about/' */
+export const withBase = (p: string) => import.meta.env.BASE_URL.replace(/\/$/, '') + p;
+
 export const isPublic = (p: Post) => p.data.approved === true && p.data.draft !== true;
 
 /** 판(독자층) — 탭 순서이기도 해요. */
@@ -61,12 +64,12 @@ export async function getPosts(): Promise<Post[]> {
 
 /** 강 주소. 대표 글은 /lessons/1/, 그 밖의 판은 /lessons/1/young/ 처럼. 2편부터는 /lessons/1/2/, /lessons/1/young/2/ */
 export const postUrl = (p: Post, primary = true) =>
-  `/lessons/${p.data.no}/` + (primary ? '' : `${p.data.edition}/`) + (partOf(p) > 1 ? `${partOf(p)}/` : '');
+  withBase(`/lessons/${p.data.no}/`) + (primary ? '' : `${p.data.edition}/`) + (partOf(p) > 1 ? `${partOf(p)}/` : '');
 
 /** 같은 강·같은 판의 편 수 (목록에 "N편" 표시용) */
 export const partCount = (all: Post[], p: Post) =>
   all.filter((x) => x.data.no === p.data.no && x.data.edition === p.data.edition).length;
-export const seasonUrl = (s: number) => `/seasons/${s}/`;
+export const seasonUrl = (s: number) => withBase(`/seasons/${s}/`);
 export const seasonName = (s: number) => {
   const name = (SITE.seasons as Record<number, string>)[s];
   return name ? `시즌 ${s} · ${name}` : `시즌 ${s}`;

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import LessonList from '../components/LessonList.astro';
 import { SITE } from '../../site.config.mjs';
-import { getPosts, groupBySeason, postUrl, seasonUrl, seasonName, formatDate } from '../lib/posts';
+import { getPosts, groupBySeason, postUrl, seasonUrl, seasonName, formatDate, withBase } from '../lib/posts';
 
 const posts = await getPosts();
 const seasons = groupBySeason(posts);
@@ -55,7 +55,7 @@ const latest = posts.filter((p) => !p.data.test).sort((a, b) => b.data.date.getT
           <p class="big" aria-hidden="true">✦</p>
           <h3>첫 강을 준비하고 있어요</h3>
           <p>곧 제1강이 올라와요. 조금만 기다려 주세요.</p>
-          <p style="margin-top:0.75rem"><a href="/rss.xml">RSS로 새 글 알림 받기</a></p>
+          <p style="margin-top:0.75rem"><a href={withBase('/rss.xml')}>RSS로 새 글 알림 받기</a></p>
         </div>
       </>
     )}
