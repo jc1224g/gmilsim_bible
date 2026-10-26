@@ -34,6 +34,30 @@ const nextPart = post && sameLesson.find((p) => p.data.edition === post.data.edi
 const { Content } = post ? await render(post) : { Content: null };
 const d = post?.data;
 const blogHome = new URL(withBase('/'), Astro.site).href;
+
+// 다른 강의 보기: 지금 보는 강을 뺀 나머지(최신순). 주제(tags)는 그 강의 모든 판에서 모음.
+const PER_PAGE = 5;
+const others = lessons.filter((l) => l.data.no !== d?.no).map((l) => {
+  const tags = [...new Set(all.filter((p) => p.data.no === l.data.no).flatMap((p) => p.data.tags ?? []))];
+  const iso = l.data.date.toISOString().slice(0, 10);
+  const month = iso.slice(0, 7);
+  return {
+    url: embedUrl(l),
+    no: l.data.no,
+    title: l.data.title,
+    date: formatDate(l.data.date),
+    iso,
+    month,
+    tags,
+    // 검색어 대상: 제목·요약·주제·날짜(여러 적는 법)
+    text: [`제${l.data.no}강`, l.data.title, l.data.summary, ...tags, iso, iso.replaceAll('-', '.'), formatDate(l.data.date)]
+      .join(' ')
+      .toLowerCase(),
+  };
+});
+const allTags = [...new Set(others.flatMap((o) => o.tags))].sort((a, b) => a.localeCompare(b, 'ko'));
+const allMonths = [...new Set(others.map((o) => o.month))].sort().reverse();
+const monthLabel = (m: string) => `${m.slice(0, 4)}년 ${Number(m.slice(5))}월`;
 ---
 
 <!doctype html>
@@ -84,6 +108,36 @@ const blogHome = new URL(withBase('/'), Astro.site).href;
       .eds .pill { font-size: 0.85rem; padding: 4px 10px; }
       .full { display: inline-block; margin-top: 0.6rem; font-size: 0.9rem; }
       .all { display: inline-block; margin-top: 1.25rem; font-size: 0.95rem; }
+      .others { margin-top: 2.5rem; padding-top: 1rem; border-top: 2px solid var(--line); }
+      .others h2 { font-size: 1.15rem; margin: 0 0 0.75rem; }
+      .others-empty, .others-none { color: var(--text-sub); margin: 0.5rem 0; }
+      .finder { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.5rem; }
+      .finder input, .finder select {
+        font: inherit; font-size: 0.95rem; padding: 7px 10px; border: 1px solid var(--line); border-radius: 10px;
+        background: #ffffff; color: var(--text); min-width: 0;
+      }
+      .finder input { flex: 1 1 100%; }
+      @media (min-width: 36rem) { .finder input { flex-basis: 14rem; } }
+      .finder select { flex: 1 1 0; }
+      @media (min-width: 36rem) { .finder select { flex: 0 1 auto; } }
+      .finder input:focus-visible, .finder select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+      .others-list { list-style: none; margin: 0; padding: 0; }
+      .others-list li { border-bottom: 1px solid var(--line); }
+      .others-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 2px; color: var(--text); text-decoration: none; }
+      .others-list a:hover .o-title, .others-list a:focus-visible .o-title { text-decoration: underline; }
+      .o-no { color: var(--accent); font-weight: 700; margin-right: 0.4rem; }
+      .others-list time { flex: none; color: var(--text-sub); font-size: 0.85rem; }
+      @media (max-width: 30rem) {
+        .others-list a { flex-direction: column; gap: 2px; }
+      }
+      .pages { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.75rem; }
+      .pages button {
+        font: inherit; font-size: 0.9rem; min-width: 2.25rem; padding: 5px 9px; border-radius: 8px; cursor: pointer;
+        border: 1px solid var(--line); background: #ffffff; color: var(--text);
+      }
+      .pages button[aria-current='page'] { background: var(--navy); border-color: var(--navy); color: #f7f2e8; font-weight: 700; }
+      .pages button:disabled { opacity: 0.4; cursor: default; }
+      .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     </style>
   </head>
   <body>
@@ -137,6 +191,46 @@ const blogHome = new URL(withBase('/'), Astro.site).href;
         <p class="empty">첫 강을 준비하고 있어요.</p>
       )}
 
+      <section class="others" aria-labelledby="others-title">
+        <h2 id="others-title">다른 강의 보기</h2>
+        {others.length === 0 ? (
+          <p class="others-empty">아직 다른 강이 없어요. 새 강이 올라오면 여기에 쌓여요.</p>
+        ) : (
+          <>
+            <form class="finder" role="search" onsubmit="return false">
+              <label class="sr-only" for="q">강의 검색</label>
+              <input id="q" type="search" placeholder="제목·주제·날짜로 찾기 (예: 주권)" autocomplete="off" />
+              {allTags.length > 0 && (
+                <>
+                  <label class="sr-only" for="tag">주제</label>
+                  <select id="tag">
+                    <option value="">모든 주제</option>
+                    {allTags.map((t) => <option value={t}>{t}</option>)}
+                  </select>
+                </>
+              )}
+              <label class="sr-only" for="month">날짜</label>
+              <select id="month">
+                <option value="">모든 날짜</option>
+                {allMonths.map((m) => <option value={m}>{monthLabel(m)}</option>)}
+              </select>
+            </form>
+            <ol class="others-list">
+              {others.map((o, i) => (
+                <li data-text={o.text} data-month={o.month} data-tags={o.tags.join('|')} hidden={i >= PER_PAGE}>
+                  <a href={o.url}>
+                    <span class="o-title"><span class="o-no">제{o.no}강</span>{o.title}</span>
+                    <time datetime={o.iso}>{o.date}</time>
+                  </a>
+                </li>
+              ))}
+            </ol>
+            <p class="others-none" hidden>찾는 강이 없어요. 다른 말로 찾아보세요.</p>
+            <nav class="pages" aria-label="다른 강의 쪽 번호"></nav>
+          </>
+        )}
+      </section>
+
       <a class="all" href={blogHome}>블로그에서 전체 강의 보기 ↗</a>
     </main>
     <script is:inline define:vars={{ embedBase: withBase('/embed/') }}>
@@ -146,6 +240,59 @@ const blogHome = new URL(withBase('/'), Astro.site).href;
         if (href.startsWith('#') || href.startsWith(embedBase)) continue;
         a.target = '_blank';
         a.rel = 'noopener';
+      }
+    </script>
+    <script is:inline define:vars={{ perPage: PER_PAGE }}>
+      // 다른 강의 보기: 검색어·주제·날짜로 거르고, 5개씩 쪽 나누기
+      const list = document.querySelector('.others-list');
+      if (list) {
+        const items = [...list.children];
+        const q = document.getElementById('q');
+        const tag = document.getElementById('tag');
+        const month = document.getElementById('month');
+        const none = document.querySelector('.others-none');
+        const pages = document.querySelector('.pages');
+        let page = 1;
+
+        const matches = () => {
+          const words = q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+          return items.filter((li) =>
+            words.every((w) => li.dataset.text.includes(w)) &&
+            (!tag || !tag.value || li.dataset.tags.split('|').includes(tag.value)) &&
+            (!month.value || li.dataset.month === month.value));
+        };
+
+        const button = (label, target, opts = {}) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = label;
+          if (opts.aria) b.setAttribute('aria-label', opts.aria);
+          if (opts.current) b.setAttribute('aria-current', 'page');
+          b.disabled = !!opts.disabled;
+          b.addEventListener('click', () => { page = target; show(); });
+          return b;
+        };
+
+        const show = () => {
+          const found = matches();
+          const total = Math.max(1, Math.ceil(found.length / perPage));
+          page = Math.min(page, total);
+          const shown = new Set(found.slice((page - 1) * perPage, page * perPage));
+          for (const li of items) li.hidden = !shown.has(li);
+          none.hidden = found.length > 0;
+          pages.replaceChildren();
+          if (total > 1) {
+            pages.append(button('‹', page - 1, { aria: '이전 쪽', disabled: page === 1 }));
+            for (let n = 1; n <= total; n++) pages.append(button(String(n), n, { aria: `${n}쪽`, current: n === page }));
+            pages.append(button('›', page + 1, { aria: '다음 쪽', disabled: page === total }));
+          }
+        };
+
+        const reset = () => { page = 1; show(); };
+        q.addEventListener('input', reset);
+        tag?.addEventListener('change', reset);
+        month.addEventListener('change', reset);
+        show();
       }
     </script>
   </body>
