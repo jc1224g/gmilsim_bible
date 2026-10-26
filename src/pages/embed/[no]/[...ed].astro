@@ -1,0 +1,18 @@
+---
+// 삽입 화면에서 강·판·편을 고를 때의 주소. /lessons/ 와 같은 모양: /embed/1/, /embed/1/2/, /embed/1/young/
+import EmbedLesson from '../../../components/EmbedLesson.astro';
+import { getAllEditions, partOf } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  const all = (await getAllEditions()).filter((p) => !p.data.test);
+  return all.map((post) => {
+    const primary = post.data.edition === all.find((x) => x.data.no === post.data.no)!.data.edition;
+    const seg = [primary ? '' : post.data.edition, partOf(post) > 1 ? String(partOf(post)) : ''].filter(Boolean).join('/');
+    return { params: { no: String(post.data.no), ed: seg || undefined }, props: { post } };
+  });
+}
+
+const { post } = Astro.props;
+---
+
+<EmbedLesson post={post} />

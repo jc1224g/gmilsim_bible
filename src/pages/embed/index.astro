@@ -1,0 +1,11 @@
+---
+// 교회 홈페이지 설교란 삽입 주소. 가장 최근 공개된 강(대표 판·첫 편)을 보여 줘요.
+import EmbedLesson from '../../components/EmbedLesson.astro';
+import { getPosts } from '../../lib/posts';
+
+const latest = (await getPosts())
+  .filter((p) => !p.data.test)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || b.data.no - a.data.no)[0];
+---
+
+<EmbedLesson post={latest} />

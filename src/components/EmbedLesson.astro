@@ -1,0 +1,152 @@
+---
+// 교회 홈페이지(Google Sites) 설교란에 삽입하는 화면 한 장. /embed/ (이번 강) 와 /embed/1/, /embed/1/young/ … 이 함께 씀.
+// 맨 위 강 고르기·판·편 이동은 삽입 상자 안에서 바뀌고, 블로그 본 사이트로 가는 링크는 새 탭으로 열려요.
+// Sites 페이지가 밝은 화면이라 휴대폰이 어두운 모드여도 밝게 보여 줘요.
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '../styles/global.css';
+import Tldr from './Tldr.astro';
+import WordCards from './WordCards.astro';
+import Quiz from './Quiz.astro';
+import NextBox from './NextBox.astro';
+import Shorts from './Shorts.astro';
+import FromBox from './FromBox.astro';
+import { render } from 'astro:content';
+import { SITE } from '../../site.config.mjs';
+import { getAllEditions, getPosts, postUrl, partLabel, partOf, editionLabel, formatDate, fromList, withBase, type Post } from '../lib/posts';
+
+interface Props { post?: Post }
+const { post } = Astro.props;
+
+const all = (await getAllEditions()).filter((p) => !p.data.test);
+// 강 고르기: 최신 강이 맨 앞
+const lessons = (await getPosts())
+  .filter((p) => !p.data.test)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || b.data.no - a.data.no);
+const latestNo = lessons[0]?.data.no;
+
+// 대표 판(맨 앞 판)은 /lessons/1/, 나머지 판은 /lessons/1/young/ 처럼. 삽입 화면은 같은 모양으로 /embed/1/ …
+const fullUrl = (p: Post) => postUrl(p, p.data.edition === all.find((x) => x.data.no === p.data.no)!.data.edition);
+const embedUrl = (p: Post) => fullUrl(p).replace(withBase('/lessons/'), withBase('/embed/'));
+const same = (a: Post, b: Post) => a.data.no === b.data.no && a.data.edition === b.data.edition && partOf(a) === partOf(b);
+
+const sameLesson = post ? all.filter((p) => p.data.no === post.data.no) : [];
+const nextPart = post && sameLesson.find((p) => p.data.edition === post.data.edition && partOf(p) === partOf(post) + 1);
+const { Content } = post ? await render(post) : { Content: null };
+const d = post?.data;
+const blogHome = new URL(withBase('/'), Astro.site).href;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{d ? `제${d.no}강 ${d.title}` : SITE.name} — {SITE.name}</title>
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <style is:global>
+      /* global.css의 어두운 모드 색을 밝은 색으로 되돌림 */
+      @media (prefers-color-scheme: dark) {
+        html:root {
+          color-scheme: light;
+          --bg: #ffffff;
+          --surface: #ffffff;
+          --surface-2: #f3ecdd;
+          --text: #16233a;
+          --text-sub: #4a5568;
+          --line: #e2d8c3;
+          --accent: #8a5a0b;
+          --accent-deco: #e8b65a;
+          --link: #1f4f8a;
+          --quote-bg: #f3ecdd;
+          --ok: #1d6b3a;
+          --no: #a2291f;
+        }
+        html:root .prose strong {
+          background: linear-gradient(transparent 62%, rgba(232, 182, 90, 0.38) 62%);
+          color: inherit;
+        }
+      }
+      html, body { background: #ffffff; }
+      body { padding: 0; }
+      .embed { max-width: 44rem; margin: 0 auto; padding: 4px 16px 24px; }
+      .picker { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--line); }
+      .picker-title { color: var(--text-sub); font-size: 0.85rem; margin-right: 2px; }
+      .pill {
+        display: inline-block; padding: 5px 12px; border-radius: 999px; background: var(--surface-2);
+        color: var(--text); text-decoration: none; font-size: 0.9rem; line-height: 1.3;
+      }
+      .pill[aria-current='page'] { background: var(--navy); color: #f7f2e8; font-weight: 700; }
+      .pill:hover, .pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+      .pill small { font-size: 0.75rem; opacity: 0.85; margin-left: 3px; }
+      .eds { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.75rem 0 0; }
+      .eds .pill { font-size: 0.85rem; padding: 4px 10px; }
+      .full { display: inline-block; margin-top: 0.6rem; font-size: 0.9rem; }
+      .all { display: inline-block; margin-top: 1.25rem; font-size: 0.95rem; }
+    </style>
+  </head>
+  <body>
+    <main class="embed">
+      {lessons.length > 0 && (
+        <nav class="picker" aria-label="강 고르기">
+          <span class="picker-title">강 고르기</span>
+          {lessons.map((l) => (
+            <a class="pill" href={embedUrl(l)} aria-current={d?.no === l.data.no ? 'page' : undefined}>
+              제{l.data.no}강{l.data.no === latestNo && <small>이번 강</small>}
+            </a>
+          ))}
+        </nav>
+      )}
+
+      {post && d && Content ? (
+        <article>
+          <header class="post-head">
+            <span class="chip">제{d.no}강{d.part ? ` ${partLabel(post)}` : ''} · {editionLabel(d.edition)}</span>
+            <h1>{d.title}</h1>
+            <p class="post-meta"><time datetime={d.date.toISOString().slice(0, 10)}>{formatDate(d.date)}</time></p>
+            {sameLesson.length > 1 && (
+              <nav class="eds" aria-label="판·편 고르기">
+                {sameLesson.map((p) => (
+                  <a class="pill" href={embedUrl(p)} aria-current={same(p, post) ? 'page' : undefined}>
+                    {editionLabel(p.data.edition)}{p.data.part ? ` ${partLabel(p)}` : ''}
+                  </a>
+                ))}
+              </nav>
+            )}
+            <a class="full" href={fullUrl(post)}>전체 화면으로 읽기 ↗</a>
+          </header>
+
+          {d.tldr ? <Tldr items={d.tldr} /> : <p class="post-lead">{d.summary}</p>}
+
+          <div class="prose">
+            <Content />
+            {d.words && d.words.length > 0 && <WordCards words={d.words} />}
+            {d.quiz && d.quiz.length > 0 && <Quiz items={d.quiz} />}
+            {d.shorts && <Shorts id={d.shorts} title={d.title} />}
+            {d.next && <NextBox text={d.next} />}
+          </div>
+
+          <FromBox items={fromList(post)} />
+
+          {nextPart && (
+            <a class="next-part" href={embedUrl(nextPart)}><span class="dir">다음 편 →</span>{partLabel(nextPart)}</a>
+          )}
+        </article>
+      ) : (
+        <p class="empty">첫 강을 준비하고 있어요.</p>
+      )}
+
+      <a class="all" href={blogHome}>블로그에서 전체 강의 보기 ↗</a>
+    </main>
+    <script is:inline define:vars={{ embedBase: withBase('/embed/') }}>
+      // 삽입 화면끼리의 이동만 상자 안에서, 나머지 링크(본 사이트·유튜브 등)는 새 탭으로
+      for (const a of document.querySelectorAll('a[href]')) {
+        const href = a.getAttribute('href');
+        if (href.startsWith('#') || href.startsWith(embedBase)) continue;
+        a.target = '_blank';
+        a.rel = 'noopener';
+      }
+    </script>
+  </body>
+</html>
