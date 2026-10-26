@@ -1,16 +1,34 @@
 ---
-// 교회 홈페이지(Google Sites) 설교란에 삽입하는 작은 목록 화면. 주소: /embed/
-// Sites 삽입 상자는 높이가 고정이라, 여기서는 강 목록만 보여 주고 글은 새 탭에서 전체 화면으로 열어요.
-// Sites 페이지가 밝은 화면이라 어두운 모드 없이 밝게만 보여 줘요.
+// 교회 홈페이지(Google Sites) 설교란에 삽입하는 화면. 주소: /embed/
+// 이번 강(가장 최근 공개된 강)은 본문을 그대로 보여 주고, 다른 판·다음 편·지난 강은 새 탭에서 전체 화면으로 열어요.
+// Sites 페이지가 밝은 화면이라 휴대폰이 어두운 모드여도 밝게 보여 줘요.
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '../styles/global.css';
+import Tldr from '../components/Tldr.astro';
+import WordCards from '../components/WordCards.astro';
+import Quiz from '../components/Quiz.astro';
+import NextBox from '../components/NextBox.astro';
+import Shorts from '../components/Shorts.astro';
+import FromBox from '../components/FromBox.astro';
+import { render } from 'astro:content';
 import { SITE } from '../../site.config.mjs';
-import { getAllEditions, getPosts, postUrl, partLabel, editionLabel, formatDate, withBase, type Post } from '../lib/posts';
+import { getAllEditions, getPosts, postUrl, partLabel, partOf, editionLabel, formatDate, fromList, withBase, type Post } from '../lib/posts';
 
 const all = (await getAllEditions()).filter((p) => !p.data.test);
-const lessons = (await getPosts()).filter((p) => !p.data.test).sort((a, b) => b.data.no - a.data.no);
-const editionsOf = (lesson: Post) => all.filter((p) => p.data.no === lesson.data.no);
-const isPrimary = (lesson: Post, p: Post) => p.data.edition === lesson.data.edition;
-const home = new URL(withBase('/'), Astro.site).href;
+const lessons = (await getPosts())
+  .filter((p) => !p.data.test)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || b.data.no - a.data.no);
+const latest = lessons[0];
+const past = lessons.slice(1);
+
+// 대표 판(맨 앞 판)은 /lessons/1/, 나머지 판은 /lessons/1/young/ 처럼
+const urlOf = (p: Post) => postUrl(p, p.data.edition === all.find((x) => x.data.no === p.data.no)!.data.edition);
+const sameLesson = latest ? all.filter((p) => p.data.no === latest.data.no) : [];
+const isLatest = (p: Post) => p.data.edition === latest?.data.edition && partOf(p) === partOf(latest);
+const otherEditions = sameLesson.filter((p) => !isLatest(p));
+const nextPart = sameLesson.find((p) => p.data.edition === latest?.data.edition && partOf(p) === partOf(latest) + 1);
+const { Content } = latest ? await render(latest) : { Content: null };
+const d = latest?.data;
 ---
 
 <!doctype html>
@@ -18,74 +36,106 @@ const home = new URL(withBase('/'), Astro.site).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{SITE.name} — 목록</title>
+    <title>{SITE.name} — 이번 강</title>
     <meta name="robots" content="noindex" />
     <meta name="color-scheme" content="light" />
     <base target="_blank" />
-    <style>
-      :root {
-        --navy: #16233a;
-        --text-sub: #4a5568;
-        --line: #e2d8c3;
-        --accent: #8a5a0b;
-        --link: #1f4f8a;
-        --chip: #f3ecdd;
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <style is:global>
+      /* global.css의 어두운 모드 색을 밝은 색으로 되돌림 */
+      @media (prefers-color-scheme: dark) {
+        html:root {
+          color-scheme: light;
+          --bg: #ffffff;
+          --surface: #ffffff;
+          --surface-2: #f3ecdd;
+          --text: #16233a;
+          --text-sub: #4a5568;
+          --line: #e2d8c3;
+          --accent: #8a5a0b;
+          --accent-deco: #e8b65a;
+          --link: #1f4f8a;
+          --quote-bg: #f3ecdd;
+          --ok: #1d6b3a;
+          --no: #a2291f;
+        }
+        html:root .prose strong {
+          background: linear-gradient(transparent 62%, rgba(232, 182, 90, 0.38) 62%);
+          color: inherit;
+        }
       }
-      * { box-sizing: border-box; }
-      html, body { margin: 0; background: #ffffff; color: var(--navy); }
-      body {
-        font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
-        font-size: 16px;
-        line-height: 1.55;
-        padding: 4px 4px 12px;
-      }
-      .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
-      .head h1 { font-size: 1.15rem; margin: 0; }
-      .head p { margin: 0; color: var(--text-sub); font-size: 0.9rem; }
-      a { color: var(--link); }
-      ol { list-style: none; margin: 0; padding: 0; }
-      li.lesson { border-top: 1px solid var(--line); padding: 14px 0; }
-      .meta { color: var(--accent); font-size: 0.85rem; font-weight: 600; }
-      .title { display: block; font-size: 1.1rem; font-weight: 700; color: var(--navy); text-decoration: none; margin: 2px 0 4px; }
-      .title:hover, .title:focus-visible { text-decoration: underline; }
-      .summary { margin: 0 0 8px; color: var(--text-sub); font-size: 0.95rem; }
-      .eds { display: flex; flex-wrap: wrap; gap: 6px; }
+      html, body { background: #ffffff; }
+      body { padding: 0; }
+      .embed { max-width: 44rem; margin: 0 auto; padding: 4px 16px 24px; }
+      .embed-label { color: var(--accent); font-size: 0.85rem; font-weight: 700; margin: 0 0 0.25rem; }
+      .eds { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.75rem 0 0; }
       .eds a {
-        display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--chip);
-        color: var(--navy); text-decoration: none; font-size: 0.85rem;
+        display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--surface-2);
+        color: var(--text); text-decoration: none; font-size: 0.85rem;
       }
       .eds a:hover, .eds a:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-      .empty { border-top: 1px solid var(--line); padding: 16px 0; color: var(--text-sub); }
-      .all { display: inline-block; margin-top: 8px; font-size: 0.9rem; }
+      .eds-title { width: 100%; color: var(--text-sub); font-size: 0.85rem; }
+      .past { margin-top: 2.5rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+      .past h2 { font-size: 1.1rem; margin: 0 0 0.5rem; }
+      .past ol { list-style: none; margin: 0; padding: 0; }
+      .past li { padding: 0.5rem 0; border-bottom: 1px solid var(--line); }
+      .past a { text-decoration: none; color: var(--text); }
+      .past a:hover, .past a:focus-visible { text-decoration: underline; }
+      .past .no { color: var(--accent); font-weight: 700; margin-right: 0.4rem; }
+      .all { display: inline-block; margin-top: 1rem; font-size: 0.95rem; }
     </style>
   </head>
   <body>
-    <div class="head">
-      <h1>{SITE.name}</h1>
-      <p>{SITE.series} · 누르면 새 탭에서 열려요</p>
-    </div>
+    <main class="embed">
+      {latest && d && Content ? (
+        <article>
+          <header class="post-head">
+            <p class="embed-label">이번 강 · {SITE.name}</p>
+            <span class="chip">제{d.no}강{d.part ? ` ${partLabel(latest)}` : ''} · {editionLabel(d.edition)}</span>
+            <h1>{d.title}</h1>
+            <p class="post-meta"><time datetime={d.date.toISOString().slice(0, 10)}>{formatDate(d.date)}</time></p>
+            {otherEditions.length > 0 && (
+              <div class="eds" aria-label="다른 판·편 (새 탭)">
+                <span class="eds-title">다른 판으로 읽기 (새 탭)</span>
+                {otherEditions.map((p) => (
+                  <a href={urlOf(p)}>{editionLabel(p.data.edition)}{p.data.part ? ` ${partLabel(p)}` : ''}</a>
+                ))}
+              </div>
+            )}
+          </header>
 
-    {lessons.length ? (
-      <ol>
-        {lessons.map((lesson) => (
-          <li class="lesson">
-            <span class="meta">제{lesson.data.no}강 · {formatDate(lesson.data.date)}</span>
-            <a class="title" href={postUrl(lesson)}>{lesson.data.title}</a>
-            <p class="summary">{lesson.data.summary}</p>
-            <div class="eds" aria-label="판 고르기">
-              {editionsOf(lesson).map((p) => (
-                <a href={postUrl(p, isPrimary(lesson, p))}>
-                  {editionLabel(p.data.edition)}{p.data.part ? ` ${partLabel(p)}` : ''}
-                </a>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ol>
-    ) : (
-      <p class="empty">첫 강을 준비하고 있어요.</p>
-    )}
+          {d.tldr ? <Tldr items={d.tldr} /> : <p class="post-lead">{d.summary}</p>}
 
-    <a class="all" href={home}>블로그에서 전체 보기 ↗</a>
+          <div class="prose">
+            <Content />
+            {d.words && d.words.length > 0 && <WordCards words={d.words} />}
+            {d.quiz && d.quiz.length > 0 && <Quiz items={d.quiz} />}
+            {d.shorts && <Shorts id={d.shorts} title={d.title} />}
+            {d.next && <NextBox text={d.next} />}
+          </div>
+
+          <FromBox items={fromList(latest)} />
+
+          {nextPart && (
+            <a class="next-part" href={urlOf(nextPart)}><span class="dir">다음 편 → (새 탭)</span>{partLabel(nextPart)}</a>
+          )}
+        </article>
+      ) : (
+        <p class="empty">첫 강을 준비하고 있어요.</p>
+      )}
+
+      {past.length > 0 && (
+        <section class="past" aria-label="지난 강">
+          <h2>지난 강 (새 탭)</h2>
+          <ol>
+            {past.map((p) => (
+              <li><a href={postUrl(p)}><span class="no">제{p.data.no}강</span>{p.data.title}</a></li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      <a class="all" href={new URL(withBase('/'), Astro.site).href}>블로그에서 전체 강의 보기 ↗</a>
+    </main>
   </body>
 </html>
