@@ -6,7 +6,7 @@ export const SITE_BASE = '/gmilsim_bible/';
 
 export const SITE = {
   name: '쉽게 배우는 성경',
-  series: '하나님 나라 100강',
+  series: '하나님 나라 52강',
   church: '광명일심교회',
   description:
     '광명일심교회 설교와 강의를 청소년·청년·장년이 읽기 쉽게 풀어 쓴 「쉽게 배우는 성경」. 하나님 나라의 백성·주권·영토를 창조·타락·구속의 흐름으로 한 강씩 따라가요.',
