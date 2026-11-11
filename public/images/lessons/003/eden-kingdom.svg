@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 640" role="img" aria-labelledby="t d">
+<title id="t">처음 나라 에덴: 다스림·땅·백성을 거룩과 동행이 감싸 안아요</title>
+<desc id="d">에덴 동산 그림. 위에는 빛나는 금빛 왕관(하나님의 다스림)이 동산을 비추고, 그 아래 나무와 꽃이 있는 둥근 동산(땅)에 두 사람이 손을 잡고 서 있어요(백성). 동산 오솔길에는 함께 걸은 발자국이 있어요. 이 셋을 금빛 점선 띠 「거룩」이 감싸고, 그 바깥을 하늘색 점선 띠 「동행」이 한 번 더 부드럽게 감싸 안고 있어요.</desc>
+<defs>
+<radialGradient id="lt" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff3d1"/><stop offset="1" stop-color="#fff3d1" stop-opacity="0"/></radialGradient>
+<filter id="bl" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<style>
+text{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans CJK KR','Noto Sans KR',sans-serif;font-weight:800;text-anchor:middle;font-size:34px}
+.o{stroke:#16233a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.k{fill:#fbf8f1}
+.n{fill:#16233a}
+.ck{fill:#f4a6a6;opacity:.85}
+.fp{fill:#c9b48a;opacity:.75}
+</style>
+<rect x="4" y="4" width="712" height="632" rx="36" fill="#fbf8f1" stroke="#f3ecdd" stroke-width="4"/>
+
+<!-- outer band: 동행 (soft, blurred, dotted) -->
+<ellipse cx="360" cy="330" rx="318" ry="282" fill="#e6f2f9" opacity=".55"/>
+<ellipse cx="360" cy="330" rx="318" ry="282" fill="none" stroke="#bfe0f2" stroke-width="30" filter="url(#bl)"/>
+<ellipse cx="360" cy="330" rx="318" ry="282" fill="none" stroke="#7fb3d1" stroke-width="5" stroke-dasharray="2 14" stroke-linecap="round"/>
+
+<!-- inner band: 거룩 -->
+<ellipse cx="360" cy="330" rx="266" ry="232" fill="#fbf3e0"/>
+<ellipse cx="360" cy="330" rx="266" ry="232" fill="none" stroke="#f2d79c" stroke-width="26" filter="url(#bl)"/>
+<ellipse cx="360" cy="330" rx="266" ry="232" fill="none" stroke="#e8b65a" stroke-width="5" stroke-dasharray="2 13" stroke-linecap="round"/>
+
+<!-- light from the crown -->
+<path d="M360 150L170 470H550Z" fill="url(#lt)"/>
+
+<!-- garden mound (땅) -->
+<path class="o" d="M152 468Q168 322 360 304Q552 322 568 468Q520 546 360 550Q200 546 152 468Z" fill="#b9dfa6" stroke-width="3.5"/>
+<path d="M186 462Q210 380 360 360" stroke="#8fc97a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>
+<!-- path with footprints -->
+<path d="M250 548Q270 470 330 440" stroke="#f3ecdd" stroke-width="22" fill="none" stroke-linecap="round"/>
+<g class="fp">
+<ellipse cx="258" cy="522" rx="4.5" ry="7" transform="rotate(-18 258 522)"/><ellipse cx="270" cy="510" rx="4.5" ry="7" transform="rotate(-25 270 510)"/>
+<ellipse cx="275" cy="488" rx="4.5" ry="7" transform="rotate(-35 275 488)"/><ellipse cx="290" cy="478" rx="4.5" ry="7" transform="rotate(-42 290 478)"/>
+<ellipse cx="298" cy="458" rx="4.5" ry="7" transform="rotate(-50 298 458)"/><ellipse cx="314" cy="452" rx="4.5" ry="7" transform="rotate(-55 314 452)"/>
+</g>
+<!-- trees -->
+<g transform="translate(185 392)">
+<rect class="o" x="-6" y="0" width="12" height="40" rx="4" fill="#a8754f" stroke-width="3"/>
+<circle class="o" cx="0" cy="-16" r="30" fill="#8fc97a" stroke-width="3.5"/>
+<circle cx="-10" cy="-20" r="4.5" fill="#f4a6a6"/><circle cx="11" cy="-8" r="4.5" fill="#f4a6a6"/><circle cx="6" cy="-30" r="4.5" fill="#f4a6a6"/>
+</g>
+<g transform="translate(545 404)">
+<rect class="o" x="-6" y="0" width="12" height="36" rx="4" fill="#a8754f" stroke-width="3"/>
+<circle class="o" cx="0" cy="-14" r="26" fill="#8fc97a" stroke-width="3.5"/>
+</g>
+<!-- flowers -->
+<g fill="#fbf8f1" stroke="#e8b65a" stroke-width="2">
+<circle cx="452" cy="520" r="6"/><circle cx="476" cy="510" r="5"/><circle cx="420" cy="532" r="5"/><circle cx="232" cy="472" r="5"/>
+</g>
+
+<!-- two people (백성): simple rounded silhouettes, holding hands -->
+<path d="M352 418q8 5 16 0" stroke="#16233a" stroke-width="4" fill="none" stroke-linecap="round"/>
+<g transform="translate(330 400)">
+<path class="o" d="M-20 40Q-22 6 0 2Q22 6 20 40Z" fill="#9cc9e4"/>
+<circle class="o" cx="0" cy="-22" r="22" fill="#9cc9e4"/>
+<circle cx="-7" cy="-22" r="2.6" fill="#16233a"/><circle cx="7" cy="-22" r="2.6" fill="#16233a"/>
+<path d="M-5-13q5 4 10 0" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-13" cy="-15" r="3.5"/><circle class="ck" cx="13" cy="-15" r="3.5"/>
+</g>
+<g transform="translate(390 400)">
+<path class="o" d="M-20 40Q-22 6 0 2Q22 6 20 40Z" fill="#f0b58c"/>
+<circle class="o" cx="0" cy="-22" r="22" fill="#f0b58c"/>
+<circle cx="-7" cy="-22" r="2.6" fill="#16233a"/><circle cx="7" cy="-22" r="2.6" fill="#16233a"/>
+<path d="M-5-13q5 4 10 0" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle class="ck" cx="-13" cy="-15" r="3.5"/><circle class="ck" cx="13" cy="-15" r="3.5"/>
+</g>
+<path d="M360 336c-5-7-15-2-10 6l10 8 10-8c5-8-5-13-10-6z" fill="#f4a6a6"/>
+
+<!-- crown with light (다스림) -->
+<g stroke="#e8b65a" stroke-width="6" stroke-linecap="round">
+<path d="M360 88v-16 M308 104l-11-11 M412 104l11-11 M290 146h-16 M430 146h16"/>
+</g>
+<g transform="translate(360 142)">
+<path class="o" d="M-46 20V-18l21 18L0-32 25 0l21-18v38z" fill="#e8b65a"/>
+<rect class="o" x="-48" y="18" width="96" height="17" rx="7" fill="#f2c977"/>
+<circle class="o" cx="-46" cy="-22" r="6.5" fill="#f6c9a8"/><circle class="o" cx="0" cy="-36" r="7.5" fill="#f4a6a6"/><circle class="o" cx="46" cy="-22" r="6.5" fill="#bfe0f2"/>
+<circle cx="0" cy="27" r="4.5" fill="#bfe0f2"/><circle cx="-26" cy="27" r="3.5" fill="#b9dfa6"/><circle cx="26" cy="27" r="3.5" fill="#b9dfa6"/>
+</g>
+<path d="M286 182l3 7 7 3-7 3-3 7-3-7-7-3 7-3z M434 178l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#e8b65a"/>
+
+<!-- labels -->
+<rect x="282" y="196" width="156" height="52" rx="26" fill="#16233a"/>
+<text class="k" x="360" y="234">다스림</text>
+<rect x="430" y="318" width="112" height="52" rx="26" fill="#16233a"/>
+<text class="k" x="486" y="356">백성</text>
+<rect x="320" y="488" width="80" height="52" rx="26" fill="#16233a"/>
+<text class="k" x="360" y="526">땅</text>
+<rect x="112" y="136" width="112" height="52" rx="26" fill="#e8b65a" class="o" stroke-width="3"/>
+<text class="n" x="168" y="174">거룩</text>
+<rect x="540" y="540" width="112" height="52" rx="26" fill="#bfe0f2" class="o" stroke-width="3"/>
+<text class="n" x="596" y="578">동행</text>
+</svg>
