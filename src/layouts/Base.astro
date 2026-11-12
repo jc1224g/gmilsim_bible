@@ -1,5 +1,6 @@
 ---
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '@fontsource/noto-serif-kr/700.css';
 import '../styles/global.css';
 import { SITE } from '../../site.config.mjs';
 import { isPreview, withBase } from '../lib/posts';
@@ -33,7 +34,8 @@ const current = (p: string) => (path === withBase(p) || (p !== '/' && path.start
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
-    <meta name="theme-color" content="#16233a" />
+    <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1a18" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href={withBase('/rss.xml')} />
@@ -62,7 +64,7 @@ const current = (p: string) => (path === withBase(p) || (p !== '/' && path.start
     {isPreview && <div class="preview-strip">미리보기 빌드 — 공개 전 초안이 함께 보여요. 이 화면은 배포하지 마세요.</div>}
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={home}><span class="brand-mark" aria-hidden="true">✦</span>{SITE.name}</a>
+        <a class="brand" href={home}>{SITE.name}<small>{SITE.church}</small></a>
         <nav class="site-nav" aria-label="주 메뉴">
           <a href={home} aria-current={path === home ? 'page' : undefined}>전체 강의</a>
           <a href={withBase('/about/')} aria-current={current('/about/')}>소개</a>

@@ -1,50 +1,50 @@
 /* 「쉽게 배우는 성경」 기본 스타일
-   색: 쇼츠 영상(video/src/theme.ts)과 같은 남색·미색·금색 */
+   색·글꼴: 교회 홈(주보 웹앱 Home.html)과 같은 미색·갈색, 제목은 명조 (2026-11-12) */
 
 :root {
-  --navy: #16233a;
-  --navy-soft: #1f3150;
-  --cream: #f7f2e8;
-  --gold: #e8b65a;
-
-  --bg: #fbf8f1;
+  --bg: #faf8f4;
   --surface: #ffffff;
-  --surface-2: #f3ecdd;
-  --text: #16233a;
-  --text-sub: #4a5568;
-  --line: #e2d8c3;
-  --accent: #8a5a0b; /* 미색 위 글자용 진한 금색 (대비 AA 이상) */
-  --accent-deco: #e8b65a;
-  --link: #1f4f8a;
-  --header-bg: #16233a;
-  --header-text: #f7f2e8;
-  --quote-bg: #f3ecdd;
-  --ok: #1d6b3a;
-  --no: #a2291f;
+  --surface-2: #f3ece3;
+  --text: #24211d;
+  --text-sub: #5c574f;
+  --line: #e8e3da;
+  --accent: #6b4a2b; /* 홈(주보 웹앱)과 같은 갈색 */
+  --accent-deco: #b98a5c;
+  --link: #8a5a2b;
+  --band: #2f2620; /* 홈의 「우리의 소원」 띠와 같은 색 */
+  --band-ink: #f4ede4;
+  --band-accent: #d9b48c;
+  --on-accent: #ffffff;
+  --quote-bg: #f3ece3;
+  --ok: #2f6b3e;
+  --no: #a33a2a;
 
-  --radius: 14px;
+  --radius: 12px;
   --measure: 40rem;
   --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
     'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+  --serif: 'Noto Serif KR', 'AppleMyungjo', 'Batang', serif;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111b2e;
-    --surface: #1a2944;
-    --surface-2: #1f3150;
-    --text: #f7f2e8;
-    --text-sub: #c9d2e0;
-    --line: #2d4266;
-    --accent: #e8b65a;
-    --accent-deco: #e8b65a;
-    --link: #9cc3f5;
-    --header-bg: #16233a;
-    --header-text: #f7f2e8;
-    --quote-bg: #1f3150;
-    --ok: #7fd49b;
-    --no: #ff9b8f;
+    --bg: #1b1a18;
+    --surface: #24221f;
+    --surface-2: #2e2924;
+    --text: #ece7df;
+    --text-sub: #b5aea4;
+    --line: #38342f;
+    --accent: #d9b48c;
+    --accent-deco: #a8835e;
+    --link: #e2bf98;
+    --band: #120f0d;
+    --band-ink: #efe6da;
+    --band-accent: #d9b48c;
+    --on-accent: #1b1a18;
+    --quote-bg: #2e2924;
+    --ok: #8fd0a0;
+    --no: #f0998b;
   }
 }
 
@@ -93,8 +93,9 @@ a:hover {
   text-decoration-thickness: 2px;
 }
 
+
 :focus-visible {
-  outline: 3px solid var(--accent-deco);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -103,8 +104,13 @@ h1,
 h2,
 h3 {
   line-height: 1.35;
-  letter-spacing: -0.01em;
   word-break: keep-all;
+  font-weight: 700;
+}
+h1,
+h2 {
+  font-family: var(--serif);
+  text-wrap: balance;
 }
 
 .wrap {
@@ -129,9 +135,9 @@ h3 {
 
 /* ---------- 머리글 / 바닥글 ---------- */
 .site-header {
-  background: var(--header-bg);
-  color: var(--header-text);
-  border-bottom: 3px solid var(--gold);
+  background: var(--bg);
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
 }
 .site-header .wrap {
   display: flex;
@@ -142,36 +148,49 @@ h3 {
   flex-wrap: wrap;
 }
 .brand {
-  color: var(--header-text);
+  color: var(--text);
   text-decoration: none;
-  font-weight: 800;
+  font-family: var(--serif);
+  font-weight: 700;
   font-size: 1.125rem;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   gap: 0.5rem;
 }
-.brand-mark {
-  color: var(--gold);
+.brand small {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: var(--text-sub);
+}
+@media (max-width: 420px) {
+  .brand small {
+    display: none;
+  }
 }
 .site-nav {
   display: flex;
   gap: 0.25rem;
 }
 .site-nav a {
-  color: var(--header-text);
+  color: var(--text-sub);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   padding: 0 0.75rem;
-  border-radius: 999px;
+  border-radius: 8px;
   font-size: 1rem;
+  transition: background-color 0.15s, color 0.15s;
 }
-.site-nav a:hover,
+.site-nav a:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
 .site-nav a[aria-current='page'] {
-  background: var(--navy-soft);
-  color: var(--gold);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .site-footer {
@@ -198,10 +217,10 @@ h3 {
 
 /* ---------- 미리보기 띠 ---------- */
 .preview-strip {
-  background: repeating-linear-gradient(-45deg, #e8b65a, #e8b65a 12px, #f0c878 12px, #f0c878 24px);
-  color: #16233a;
+  background: repeating-linear-gradient(-45deg, #e3c8a4, #e3c8a4 12px, #ecd8bc 12px, #ecd8bc 24px);
+  color: #24211d;
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.9375rem;
   padding: 0.4rem 1rem;
 }
@@ -211,7 +230,7 @@ h3 {
   border: 2px dashed var(--no);
   border-radius: var(--radius);
   color: var(--no);
-  font-weight: 700;
+  font-weight: 600;
   background: var(--surface);
 }
 .draft-banner small {
@@ -229,68 +248,52 @@ h3 {
   min-height: 48px;
   padding: 0 1.25rem;
   border-radius: 999px;
-  background: var(--navy);
-  color: var(--cream);
+  background: var(--accent);
+  color: var(--on-accent);
   text-decoration: none;
-  font-weight: 700;
   border: 0;
   font: inherit;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 }
-@media (prefers-color-scheme: dark) {
-  .btn {
-    background: var(--gold);
-    color: var(--navy);
-  }
-}
 .btn:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
 }
 .chip {
   display: inline-block;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--accent);
-  letter-spacing: 0.02em;
 }
 
 /* ---------- 홈 ---------- */
 .hero {
-  background: var(--header-bg);
-  color: var(--header-text);
-  padding: 2.5rem 0 3rem;
+  padding: 3rem 0 1rem;
 }
 .hero .eyebrow {
-  color: var(--gold);
-  font-weight: 700;
+  color: var(--accent);
+  font-weight: 500;
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.9375rem;
 }
 .hero h1 {
-  margin: 0.25rem 0 0.75rem;
-  font-size: clamp(2rem, 7vw, 3rem);
-  font-weight: 900;
+  margin: 0.5rem 0 1rem;
+  font-size: clamp(2.25rem, 8vw, 3.25rem);
+  line-height: 1.25;
 }
 .hero p {
   margin: 0 0 0.5rem;
-  color: #dfe5ee;
+  color: var(--text-sub);
   max-width: 34rem;
+}
+.hero .key {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .section-title {
-  font-size: 1.375rem;
-  margin: 2.5rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.section-title::before {
-  content: '';
-  width: 6px;
-  height: 1.2em;
-  background: var(--accent-deco);
-  border-radius: 3px;
+  font-size: 1.5rem;
+  margin: 3rem 0 1rem;
 }
 
 .card {
@@ -305,9 +308,14 @@ h3 {
 a.card:hover {
   border-color: var(--accent-deco);
 }
+a.card:hover h3 {
+  color: var(--accent);
+}
 .card h3 {
-  margin: 0.15rem 0 0.4rem;
-  font-size: 1.25rem;
+  margin: 0.25rem 0 0.5rem;
+  font-family: var(--serif);
+  font-size: 1.3125rem;
+  transition: color 0.15s;
 }
 .card p {
   margin: 0;
@@ -317,7 +325,7 @@ a.card:hover {
 .card .more {
   display: inline-block;
   margin-top: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--link);
   font-size: 1rem;
 }
@@ -349,24 +357,20 @@ a.card:hover {
 .lesson-no {
   flex: 0 0 auto;
   min-width: 3.2em;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
   font-size: 0.9375rem;
 }
 .lesson-title {
-  font-weight: 600;
+  font-weight: 500;
 }
 .lesson-flag {
-  margin-left: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--no);
-  border: 1px solid currentColor;
-  border-radius: 6px;
-  padding: 0 0.35rem;
+  margin-left: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--text-sub);
   white-space: nowrap;
-  vertical-align: 0.1em;
 }
 .season-head {
   display: flex;
@@ -393,11 +397,6 @@ a.card:hover {
   padding: 1.75rem 1.25rem;
   text-align: center;
 }
-.empty .big {
-  font-size: 2rem;
-  margin: 0;
-  color: var(--accent-deco);
-}
 .empty h3 {
   margin: 0.5rem 0 0.25rem;
 }
@@ -414,37 +413,32 @@ a.card:hover {
   list-style: none;
   counter-reset: step;
 }
+.steps {
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
 .steps li {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 0.9rem 1.1rem 0.9rem 3.4rem;
-  position: relative;
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
   counter-increment: step;
   font-size: 1rem;
+  color: var(--text-sub);
 }
 .steps li::before {
   content: counter(step);
-  position: absolute;
-  left: 1rem;
-  top: 0.85rem;
-  width: 1.7rem;
-  height: 1.7rem;
-  border-radius: 50%;
-  background: var(--accent-deco);
-  color: var(--navy);
-  font-weight: 800;
-  display: grid;
-  place-items: center;
-  font-size: 0.875rem;
+  grid-row: span 2;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--accent);
 }
 .steps strong {
   display: block;
-}
-@media (min-width: 768px) {
-  .steps {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  color: var(--text);
+  font-weight: 600;
 }
 
 /* ---------- 글 ---------- */
@@ -456,7 +450,7 @@ a.card:hover {
 }
 .post-head h1 {
   font-size: clamp(1.75rem, 6.5vw, 2.5rem);
-  font-weight: 900;
+  line-height: 1.3;
   margin: 0.25rem 0 0.75rem;
 }
 .post-meta {
@@ -490,20 +484,20 @@ a.card:hover {
   margin-top: 0.35rem;
 }
 .prose strong {
-  font-weight: 800;
-  background: linear-gradient(transparent 62%, rgba(232, 182, 90, 0.38) 62%);
+  font-weight: 700;
+  background: linear-gradient(transparent 62%, rgba(185, 138, 92, 0.24) 62%);
 }
 @media (prefers-color-scheme: dark) {
   .prose strong {
     background: none;
-    color: var(--gold);
+    color: var(--accent);
   }
 }
 .prose blockquote {
   margin: 1.5rem 0;
   padding: 1rem 1.1rem 1rem 1.25rem;
   background: var(--quote-bg);
-  border-left: 5px solid var(--accent-deco);
+  border-left: 3px solid var(--accent-deco);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 .prose blockquote p:last-child {
@@ -522,20 +516,20 @@ a.card:hover {
   margin-bottom: 0;
 }
 .box-label {
-  margin: 0 0 0.4rem !important;
-  font-weight: 800;
+  margin: 0 0 0.5rem !important;
+  font-weight: 600;
   font-size: 0.9375rem;
   color: var(--accent);
-  letter-spacing: 0.02em;
 }
 .box-tldr {
-  background: var(--header-bg);
-  color: var(--header-text);
+  background: var(--band);
+  color: var(--band-ink);
   border: 0;
   margin-top: 1.5rem;
+  padding: 1.25rem 1.25rem 1.375rem;
 }
 .box-tldr .box-label {
-  color: var(--gold);
+  color: var(--band-accent);
 }
 .box-tldr ol {
   margin: 0;
@@ -555,16 +549,10 @@ a.card:hover {
   content: counter(t);
   position: absolute;
   left: 0;
-  top: 0.2em;
-  width: 1.4rem;
-  height: 1.4rem;
-  border-radius: 50%;
-  background: var(--gold);
-  color: var(--navy);
-  font-size: 0.8125rem;
-  font-weight: 800;
-  display: grid;
-  place-items: center;
+  top: 0;
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--band-accent);
 }
 .box-tmi {
   background: var(--surface-2);
@@ -583,7 +571,7 @@ details.box-tmi > summary::after {
   content: '펼쳐 보기 ▾';
   float: right;
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-sub);
 }
 details.box-tmi[open] > summary {
@@ -591,16 +579,6 @@ details.box-tmi[open] > summary {
 }
 details.box-tmi[open] > summary::after {
   content: '접기 ▴';
-}
-.box-tmi .box-label::before {
-  content: '';
-  display: inline-block;
-  width: 0.6em;
-  height: 0.6em;
-  margin-right: 0.45em;
-  border-radius: 50%;
-  background: var(--accent-deco);
-  vertical-align: 0.05em;
 }
 
 .words {
@@ -616,13 +594,14 @@ details.box-tmi[open] > summary::after {
 .word {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-top: 4px solid var(--accent-deco);
   border-radius: var(--radius);
-  padding: 0.9rem 1.1rem;
+  padding: 1rem 1.25rem;
 }
 .word dt {
-  font-weight: 800;
+  font-family: var(--serif);
+  font-weight: 700;
   font-size: 1.125rem;
+  color: var(--accent);
 }
 .word dd {
   margin: 0.25rem 0 0;
@@ -645,7 +624,7 @@ details.box-tmi[open] > summary::after {
 }
 .quiz-q {
   margin: 0 0 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .quiz-buttons {
   display: none;
@@ -659,16 +638,19 @@ details.box-tmi[open] > summary::after {
   flex: 1;
   min-height: 52px;
   font: inherit;
-  font-size: 1.375rem;
-  font-weight: 900;
-  border-radius: 12px;
-  border: 2px solid var(--line);
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--line);
   background: var(--bg);
   color: var(--text);
   cursor: pointer;
 }
 .quiz-buttons button:hover {
   border-color: var(--accent-deco);
+}
+.quiz-buttons button[aria-pressed='true'] {
+  border-width: 2px;
 }
 .quiz-buttons button[aria-pressed='true'].right {
   border-color: var(--ok);
@@ -680,7 +662,7 @@ details.box-tmi[open] > summary::after {
 }
 .quiz-feedback {
   margin: 0 0 0.4rem;
-  font-weight: 800;
+  font-weight: 600;
   min-height: 0;
 }
 .quiz-feedback.right {
@@ -695,7 +677,7 @@ details.box-tmi[open] > summary::after {
   display: flex;
   align-items: center;
   color: var(--link);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1rem;
 }
 .quiz details p {
@@ -704,7 +686,8 @@ details.box-tmi[open] > summary::after {
 }
 
 .next-box {
-  border: 2px solid var(--accent-deco);
+  background: var(--surface-2);
+  border: 0;
 }
 
 .shorts {
@@ -718,7 +701,7 @@ details.box-tmi[open] > summary::after {
   margin: 0 auto;
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--navy);
+  background: var(--band);
 }
 .shorts-frame iframe {
   position: absolute;
@@ -735,29 +718,30 @@ details.box-tmi[open] > summary::after {
   align-items: center;
   justify-content: center;
   gap: 0.9rem;
-  color: var(--cream);
+  color: var(--band-ink);
   text-decoration: none;
   text-align: center;
   padding: 1.5rem;
-  background: radial-gradient(circle at 50% 40%, #1f3150 0%, #16233a 70%);
+  background: var(--band);
 }
 .shorts-play .icon {
-  width: 76px;
-  height: 76px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: var(--gold);
-  color: var(--navy);
+  background: var(--band-ink);
+  color: var(--band);
   display: grid;
   place-items: center;
   font-size: 1.9rem;
   padding-left: 6px;
 }
 .shorts-play .t {
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.125rem;
 }
 .shorts-play small {
-  color: #c9d2e0;
+  color: var(--band-ink);
+  opacity: 0.75;
   font-size: 0.875rem;
   line-height: 1.5;
 }
@@ -769,7 +753,7 @@ details.box-tmi[open] > summary::after {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .from-box {
@@ -814,10 +798,12 @@ details.box-tmi[open] > summary::after {
   display: block;
   font-size: 0.875rem;
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 600;
 }
-.pager .next {
-  text-align: right;
+@media (min-width: 640px) {
+  .pager .next {
+    text-align: right;
+  }
 }
 .pager .spacer {
   display: none;
@@ -835,7 +821,7 @@ details.box-tmi[open] > summary::after {
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 0.9375rem;
   text-decoration: none;
   color: inherit;
@@ -849,12 +835,16 @@ details.box-tmi[open] > summary::after {
   display: block;
   margin-top: 2rem;
   padding: 0.85rem 1.1rem;
-  border: 2px solid var(--accent-deco);
+  border: 1px solid var(--line);
+  background: var(--surface);
   border-radius: var(--radius);
   text-align: right;
   text-decoration: none;
   color: inherit;
-  font-weight: 700;
+  font-weight: 600;
+}
+.next-part:hover {
+  border-color: var(--accent-deco);
 }
 .next-part .dir {
   display: block;
@@ -871,7 +861,7 @@ details.box-tmi[open] > summary::after {
   display: inline-block;
   background: var(--no);
   color: #fff;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 0.875rem;
   border-radius: 6px;
   padding: 0.1rem 0.5rem;

@@ -3,6 +3,7 @@
 // 맨 위 강 고르기·판·편 이동은 삽입 상자 안에서 바뀌고, 블로그 본 사이트로 가는 링크는 새 탭으로 열려요.
 // Sites 페이지가 밝은 화면이라 휴대폰이 어두운 모드여도 밝게 보여 줘요.
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '@fontsource/noto-serif-kr/700.css';
 import '../styles/global.css';
 import Tldr from './Tldr.astro';
 import WordCards from './WordCards.astro';
@@ -76,19 +77,23 @@ const monthLabel = (m: string) => `${m.slice(0, 4)}년 ${Number(m.slice(5))}월`
           color-scheme: light;
           --bg: #ffffff;
           --surface: #ffffff;
-          --surface-2: #f3ecdd;
-          --text: #16233a;
-          --text-sub: #4a5568;
-          --line: #e2d8c3;
-          --accent: #8a5a0b;
-          --accent-deco: #e8b65a;
-          --link: #1f4f8a;
-          --quote-bg: #f3ecdd;
-          --ok: #1d6b3a;
-          --no: #a2291f;
+          --surface-2: #f3ece3;
+          --text: #24211d;
+          --text-sub: #5c574f;
+          --line: #e8e3da;
+          --accent: #6b4a2b;
+          --accent-deco: #b98a5c;
+          --link: #8a5a2b;
+          --band: #2f2620;
+          --band-ink: #f4ede4;
+          --band-accent: #d9b48c;
+          --on-accent: #ffffff;
+          --quote-bg: #f3ece3;
+          --ok: #2f6b3e;
+          --no: #a33a2a;
         }
         html:root .prose strong {
-          background: linear-gradient(transparent 62%, rgba(232, 182, 90, 0.38) 62%);
+          background: linear-gradient(transparent 62%, rgba(185, 138, 92, 0.24) 62%);
           color: inherit;
         }
       }
@@ -101,7 +106,7 @@ const monthLabel = (m: string) => `${m.slice(0, 4)}년 ${Number(m.slice(5))}월`
         display: inline-block; padding: 5px 12px; border-radius: 999px; background: var(--surface-2);
         color: var(--text); text-decoration: none; font-size: 0.9rem; line-height: 1.3;
       }
-      .pill[aria-current='page'] { background: var(--navy); color: #f7f2e8; font-weight: 700; }
+      .pill[aria-current='page'] { background: var(--accent); color: var(--on-accent); font-weight: 600; }
       .pill:hover, .pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
       .pill small { font-size: 0.75rem; opacity: 0.85; margin-left: 3px; }
       .eds { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.75rem 0 0; }
@@ -125,7 +130,7 @@ const monthLabel = (m: string) => `${m.slice(0, 4)}년 ${Number(m.slice(5))}월`
       .others-list li { border-bottom: 1px solid var(--line); }
       .others-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 2px; color: var(--text); text-decoration: none; }
       .others-list a:hover .o-title, .others-list a:focus-visible .o-title { text-decoration: underline; }
-      .o-no { color: var(--accent); font-weight: 700; margin-right: 0.4rem; }
+      .o-no { color: var(--accent); font-weight: 600; margin-right: 0.4rem; }
       .others-list time { flex: none; color: var(--text-sub); font-size: 0.85rem; }
       @media (max-width: 30rem) {
         .others-list a { flex-direction: column; gap: 2px; }
@@ -135,7 +140,7 @@ const monthLabel = (m: string) => `${m.slice(0, 4)}년 ${Number(m.slice(5))}월`
         font: inherit; font-size: 0.9rem; min-width: 2.25rem; padding: 5px 9px; border-radius: 8px; cursor: pointer;
         border: 1px solid var(--line); background: #ffffff; color: var(--text);
       }
-      .pages button[aria-current='page'] { background: var(--navy); border-color: var(--navy); color: #f7f2e8; font-weight: 700; }
+      .pages button[aria-current='page'] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
       .pages button:disabled { opacity: 0.4; cursor: default; }
       .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     </style>

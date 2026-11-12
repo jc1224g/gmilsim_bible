@@ -15,7 +15,7 @@ const latest = posts.filter((p) => !p.data.test).sort((a, b) => b.data.date.getT
       <p class="eyebrow">{SITE.church} · {SITE.series}</p>
       <h1>{SITE.name}</h1>
       <p>교회에서 들은 설교를 청소년·청년·장년이 각자 읽기 좋게 풀어 썼어요.</p>
-      <p>성경 전체를 꿰는 한 단어, <strong style="color:#e8b65a">하나님 나라</strong>를 한 강씩 따라가 봐요.</p>
+      <p>성경 전체를 꿰는 한 단어, <strong class="key">하나님 나라</strong>를 한 강씩 따라가 봐요.</p>
     </div>
   </section>
 
@@ -52,7 +52,6 @@ const latest = posts.filter((p) => !p.data.test).sort((a, b) => b.data.date.getT
       <>
         <h2 class="section-title">전체 강의 목록</h2>
         <div class="empty">
-          <p class="big" aria-hidden="true">✦</p>
           <h3>첫 강을 준비하고 있어요</h3>
           <p>곧 제1강이 올라와요. 조금만 기다려 주세요.</p>
           <p style="margin-top:0.75rem"><a href={withBase('/rss.xml')}>RSS로 새 글 알림 받기</a></p>
